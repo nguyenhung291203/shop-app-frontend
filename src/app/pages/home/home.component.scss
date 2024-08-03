@@ -1,0 +1,95 @@
+// $white-translucent-50: rgba(255, 255, 255, 0.5);
+@import '../../../styles/colors';
+
+
+// section
+.form-control {
+    background-color: transparent;
+    color: $white;
+
+    &::placeholder {
+        color: $white-translucent-50;
+        opacity: 1;
+    }
+
+    &:-ms-input-placeholder,
+    &::-ms-input-placeholder {
+        color: $white-translucent-50;
+    }
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 300px;
+    background-color: rgb(19, 23, 42);
+    margin-right: 10px;
+    border-color: $white-translucent-50;
+    color: $white;
+}
+
+.product- {
+    &category {
+        width: 200px;
+    }
+
+    &item {
+        background-color: $dark-blue;
+        border: 1px solid $dark-slate;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    &image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 100px;
+    }
+
+    &name {
+        color: $white;
+    }
+
+    &desciption {
+        color: $light-blue-gray;
+    }
+
+    &warranty {
+        color: $bright-pink;
+    }
+
+    &price {
+        color: $white;
+    }
+
+    &rating {
+        color: $golden-yellow;
+        margin-top: 10px;
+    }
+
+    &actions {
+        display: flex;
+        // justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+
+.space-x {
+    margin: 0 10px;
+}
+
+// end section
+
+
+
+
+// footer
+
+// end of footer

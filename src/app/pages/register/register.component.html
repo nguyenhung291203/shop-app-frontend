@@ -1,0 +1,48 @@
+<app-header></app-header>
+<div class=" d-flex justify-content-center">
+  <div class="wrapper">
+    <div class="title">
+      Đăng ký
+    </div>
+    <form action="#">
+      <div class="field">
+        <input type="text" [(ngModel)]="phone" required name="phone" id="phone">
+        <label>Email/Phone</label>
+      </div>
+      <div class="field">
+        <input type="password" [(ngModel)]="password" name="password" id="password" required>
+        <label>Mật khẩu</label>
+      </div>
+      <div class="field">
+        <input type="password" [(ngModel)]="retypePassword" name="retypePassword" id="retypePassword" required>
+        <label>Gõ lại mật khẩu</label>
+      </div>
+      <div class="field">
+        <input type="text" [(ngModel)]="fullName" name="fullName" id="fullName" required>
+        <label>Họ tên đầy đủ</label>
+      </div>
+      <div class="field">
+        <input type="text" [(ngModel)]="address" id="address" name="address">
+        <label>Địa chỉ</label>
+      </div>
+      <div class="field">
+        <input type="date" [(ngModel)]="dateOfBirth" id="date" name="date">
+        <label>Ngày tháng năm sinh</label>
+      </div>
+      <div class="content">
+        <div class="checkbox">
+          <input type="checkbox" id="remember-me" [(ngModel)]="isAccepted" name="remember-me">
+          <label for="remember-me">Bạn có đồng ý với những điều khoản</label>
+        </div>
+      </div>
+      <div class="field">
+        <input type="submit" value="Đăng ký" (click)="register()">
+      </div>
+      <div class="signup-link">
+        Bạn đã có tài khoản chưa?<a href="#"> Đăng nhập</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

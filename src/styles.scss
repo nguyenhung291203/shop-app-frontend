@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import './styles/colors';
+
+body {
+    background: linear-gradient($gradient-start-dark-blue, $gradient-end-navy-blue);
+
+}
+
+.intro-section {
+    text-align: center;
+    color: $white;
+    padding: 20px;
+}
+
+.btn-gradient {
+    background: linear-gradient(to right, $pink-coral, $purple-indigo);
+    color: $white;
+    border-radius: 30px;
+    width: 200px;
+    border: none;
+    outline: none;
+
+
+    &:hover,
+    &:active {
+        color: $white;
+    }
+}

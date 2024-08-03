@@ -1,0 +1,35 @@
+@import '../../../styles/colors';
+
+// header
+
+.navbar {
+    background-color: $transparent-black !important;
+
+    .container {
+        background-color: $transparent-black !important;
+
+        .navbar- {
+            &brand {
+                color: $light-blue-gray;
+            }
+
+            &nav {
+                .nav-link {
+                    color: $light-blue-gray;
+                    border-radius: 18px;
+                    padding: 8px 16px;
+                    transition: ease-in-out 0.3s;
+
+                    &.active,
+                    &:hover {
+                        background-color: $neon-purple !important;
+                        color: $white !important;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+// end of header
