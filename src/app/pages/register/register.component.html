@@ -4,35 +4,40 @@
     <div class="title">
       Đăng ký
     </div>
-    <form action="#">
+    <form #registerForm action="#">
       <div class="field">
-        <input type="text" [(ngModel)]="phone" required name="phone" id="phone">
-        <label>Email/Phone</label>
+        <input [class.border-danger]="isError&&isErrorPhone&&phone.length<6" #inputElement type="text"
+          [(ngModel)]="phone" required name="phone" id="phone">
+        <label [class.text-danger]="isError&&isErrorPhone&&phone.length<6">Email/Phone</label>
+
       </div>
       <div class="field">
-        <input type="password" [(ngModel)]="password" name="password" id="password" required>
-        <label>Mật khẩu</label>
+        <input type="password" [class.border-danger]="isError&&isErrorPassword&&password.length<6"
+          [(ngModel)]="password" name="password" id="password" required>
+        <label [class.text-danger]="isError&&isErrorPassword&&password.length<6">Mật khẩu</label>
       </div>
       <div class="field">
-        <input type="password" [(ngModel)]="retypePassword" name="retypePassword" id="retypePassword" required>
-        <label>Gõ lại mật khẩu</label>
+        <input type="password" [class.border-danger]="isError&&isErrorRetypePassword&&retypePassword.length<6"
+          [(ngModel)]="retypePassword" name="retypePassword" id="retypePassword" required>
+        <label [class.text-danger]="isError&&isErrorRetypePassword&&retypePassword.length<6">Gõ lại mật khẩu</label>
       </div>
       <div class="field">
-        <input type="text" [(ngModel)]="fullName" name="fullName" id="fullName" required>
-        <label>Họ tên đầy đủ</label>
+        <input type="text" [class.border-danger]="isError&&isErrorFullName&&fullName.length<1" [(ngModel)]="fullName"
+          name="fullName" id="fullName" required>
+        <label [class.text-danger]="isError&&isErrorFullName&&fullName.length<1">Họ tên đầy đủ</label>
       </div>
       <div class="field">
         <input type="text" [(ngModel)]="address" id="address" name="address">
         <label>Địa chỉ</label>
       </div>
       <div class="field">
-        <input type="date" [(ngModel)]="dateOfBirth" id="date" name="date">
+        <input type="date" data-date-format="yyyy-MM-dd" [(ngModel)]="dateOfBirth" id="date" name="date">
         <label>Ngày tháng năm sinh</label>
       </div>
       <div class="content">
         <div class="checkbox">
           <input type="checkbox" id="remember-me" [(ngModel)]="isAccepted" name="remember-me">
-          <label for="remember-me">Bạn có đồng ý với những điều khoản</label>
+          <label for="remember-me" [class.text-danger]="isError&&!isAccepted">Bạn có đồng ý với những điều khoản</label>
         </div>
       </div>
       <div class="field">

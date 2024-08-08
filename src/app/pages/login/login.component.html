@@ -6,16 +6,16 @@
     </div>
     <form action="#">
       <div class="field">
-        <input type="text" required>
-        <label>Email/Phone</label>
+        <input [class.border-danger]="isError&&phone.length===0" #phoneInputElement type="text" [(ngModel)]="phone" required name="phone">
+        <label [class.text-danger]="isError&&phone.length===0">Email/Phone</label>
       </div>
       <div class="field">
-        <input type="password" required>
-        <label>Mật khẩu</label>
+        <input [class.border-danger]="isError&&password.length===0" type="password" [(ngModel)]="password" required name="password">
+        <label [class.text-danger]="isError&&password.length===0">Mật khẩu</label>
       </div>
       <div class="content">
         <div class="checkbox">
-          <input type="checkbox" id="remember-me">
+          <input type="checkbox" id="remember-me" [(ngModel)]="isAccepted" name="checkbox">
           <label for="remember-me">Ghi nhớ mật khẩu</label>
         </div>
         <div class="pass-link">
@@ -23,10 +23,10 @@
         </div>
       </div>
       <div class="field">
-        <input type="submit" value="Đăng nhập">
+        <input (click)="login()" type="submit" value="Đăng nhập">
       </div>
       <div class="signup-link">
-        Bạn đã có tài khoản chưa?<a href="#"> Đăng ký</a>
+        <a href="#"> Đăng ký</a>
       </div>
     </form>
   </div>
