@@ -7,6 +7,7 @@ import {
   AlertService,
   CategoryService,
   ProductImageService,
+  CartService,
 } from 'src/app/services';
 
 @Component({
@@ -15,16 +16,18 @@ import {
   styleUrls: ['./detail-product.component.scss'],
 })
 export class DetailProductComponent implements OnInit {
-  productId: number = 5;
+  productId: number = 7;
   product!: Product;
   category!: Category;
   productImages: string[] = [];
   productImage!: string;
+  quantity: number = 1;
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
     private loadingService: LoadingService,
-    private productImageService: ProductImageService
+    private productImageService: ProductImageService,
+    private cartService: CartService
   ) {}
   ngOnInit(): void {
     this.getProductById(this.productId);
@@ -71,5 +74,9 @@ export class DetailProductComponent implements OnInit {
   }
   handleChangeProductImage(productImage: string) {
     this.productImage = productImage;
+  }
+  addToCart() {
+    console.log('Them vao gio hang');
+    this.cartService.addToCart(this.productId, this.quantity);
   }
 }
