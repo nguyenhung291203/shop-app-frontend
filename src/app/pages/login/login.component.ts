@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-// import { UserLoginRespons } from 'src/app/response/user/userLogin.response';
 import { AlertService } from 'src/app/services/alert.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';

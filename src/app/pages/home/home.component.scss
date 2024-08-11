@@ -4,85 +4,95 @@
 
 // section
 .form-control {
-    background-color: transparent;
-    color: $white;
+  background-color: transparent;
+  color: $white;
 
-    &::placeholder {
-        color: $white-translucent-50;
-        opacity: 1;
-    }
+  &::placeholder {
+    color: $white-translucent-50;
+    opacity: 1;
+  }
 
-    &:-ms-input-placeholder,
-    &::-ms-input-placeholder {
-        color: $white-translucent-50;
-    }
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder {
+    color: $white-translucent-50;
+  }
 }
 
 .search-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-bottom: 20px;
 }
 
 .search-input {
-    width: 300px;
-    background-color: rgb(19, 23, 42);
-    margin-right: 10px;
-    border-color: $white-translucent-50;
-    color: $white;
+  width: 300px;
+  background-color: rgb(19, 23, 42);
+  margin-right: 10px;
+  border-color: $white-translucent-50;
+  color: $white;
 }
 
 .product- {
-    &category {
-        width: 200px;
-    }
+  &category {
+    width: 200px;
+  }
 
-    &item {
-        background-color: $dark-blue;
-        border: 1px solid $dark-slate;
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
+  &item {
+    background-color: $dark-blue;
+    border: 1px solid $dark-slate;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
 
-    &image {
-        width: 100%;
-        height: auto;
-        margin-bottom: 100px;
-    }
+  &image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 100px;
+  }
 
-    &name {
-        color: $white;
-    }
+  &name {
+    color: $white;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.4em;
+  }
 
-    &desciption {
-        color: $light-blue-gray;
-    }
+  &desciption {
+    color: $light-blue-gray;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 3.5em;
+  }
 
-    &warranty {
-        color: $bright-pink;
-    }
+  &warranty {
+    color: $bright-pink;
+  }
 
-    &price {
-        color: $white;
-    }
+  &price {
+    color: $white;
+  }
 
-    &rating {
-        color: $golden-yellow;
-        margin-top: 10px;
-    }
+  &rating {
+    color: $golden-yellow;
+    margin-top: 10px;
+  }
 
-    &actions {
-        display: flex;
-        // justify-content: center;
-        margin-top: 20px;
-    }
+  &actions {
+    display: flex;
+    // justify-content: center;
+    margin-top: 20px;
+  }
 }
 
 
 .space-x {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 // end section
@@ -93,3 +103,110 @@
 // footer
 
 // end of footer
+
+
+
+
+
+
+/* From Uiverse.io by 3bdel3ziz-T */ 
+.select {
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+  transition: 300ms;
+  color: white;
+  overflow: hidden;
+}
+
+.selected {
+  background-color: #2a2f3b;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100000;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow {
+  position: relative;
+  right: 0px;
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: white;
+  z-index: 100000;
+  transition: 300ms;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  position: relative;
+  top: -100px;
+  opacity: 0;
+  transition: 300ms;
+}
+
+.select:hover > .options {
+  opacity: 1;
+  top: 0;
+}
+
+.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+
+.option {
+  border-radius: 5px;
+  padding: 5px;
+  transition: 300ms;
+  background-color: #2a2f3b;
+  width: 150px;
+  font-size: 15px;
+}
+.option:hover {
+  background-color: #323741;
+}
+
+.options input[type="radio"] {
+  display: none;
+}
+
+.options label {
+  display: inline-block;
+}
+.options label::before {
+  content: attr(data-txt);
+}
+
+.options input[type="radio"]:checked + label {
+  display: none;
+}
+
+.options input[type="radio"]#all:checked + label {
+  display: none;
+}
+
+.select:has(.options input[type="radio"]#all:checked) .selected::before {
+  content: attr(data-default);
+}
+.select:has(.options input[type="radio"]#option-1:checked) .selected::before {
+  content: attr(data-one);
+}
+.select:has(.options input[type="radio"]#option-2:checked) .selected::before {
+  content: attr(data-two);
+}
+.select:has(.options input[type="radio"]#option-3:checked) .selected::before {
+  content: attr(data-three);
+}
+
+
+

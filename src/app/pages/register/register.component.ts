@@ -1,10 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { UserRegisterDTO } from 'src/app/dto/user/userRegister.dto';
-import { UserService } from 'src/app/services/user.service';
-import { AlertService } from 'src/app/services/alert.service';
-
-import * as dayjs from 'dayjs';
-
+// import { UserRegisterDTO } from 'src/app/dto/user/register.dto';
+import { UserRegisterRequest } from 'src/app/models';
+import { UserService, AlertService } from 'src/app/services';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -45,7 +42,7 @@ export class RegisterComponent {
     this.inputElement.nativeElement.focus();
   }
   register() {
-    const registerData = new UserRegisterDTO({
+    const registerData: UserRegisterRequest = {
       fullname: this.fullName,
       phone_number: this.phone,
       address: this.address,
@@ -55,7 +52,7 @@ export class RegisterComponent {
       facebook_accout_id: null,
       google_account_id: null,
       role_id: 1,
-    });
+    };
 
     const phoneRegex = /^[0-9]{6,10}$/;
     this.isErrorPhone = !phoneRegex.test(this.phone);
@@ -70,24 +67,24 @@ export class RegisterComponent {
       this.isErrorPassword ||
       this.isErrorRetypePassword;
     console.log(registerData);
-    
-    // if (!this.isError && this.isAccepted) {
-      // if (this.password == this.retypePassword) {
-        this.userService.register(registerData).subscribe({
-          next: ({ message }: any) => {
-            console.log(message);
-            this.alertService.signed(message);
-          },
 
-          error: ({ error }: any) => {
-            console.log(error);
-            error.message.this.alertService.signFailure(error.message);
-          },
-        });
-      // } else {
-        this.isErrorPassword = true;
-        this.isErrorRetypePassword = true;
-      // }
+    // if (!this.isError && this.isAccepted) {
+    // if (this.password == this.retypePassword) {
+    this.userService.register(registerData).subscribe({
+      next: ({ message }: any) => {
+        console.log(message);
+        this.alertService.signed(message);
+      },
+
+      error: ({ error }: any) => {
+        console.log(error);
+        error.message.this.alertService.signFailure(error.message);
+      },
+    });
+    // } else {
+    this.isErrorPassword = true;
+    this.isErrorRetypePassword = true;
+    // }
     // }
     this.phone = '';
     this.password = '';

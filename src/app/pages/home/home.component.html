@@ -1,112 +1,42 @@
 <app-header></app-header>
 <div class="container">
-  <div class="intro-section">
-    <h1>Đây là trang Home</h1>
-    <p>Trang này hiện thị danh sách sản phẩm, kèm ảnh</p>
+  <div class="search-box position-relative d-flex items-center">
+    <div class="md:flex md:items-center mb-6 mr-2">
+      <div class="md:w-3/3">
+        <input (keydown.enter)="getAllProducts()" [(ngModel)]="search"
+          class="bg-gray-200 appearance-none border-2 border-violet-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-violet focus:border-violet-500"
+          id="inline-full-name" type="text" placeholder="Tìm kiếm sản phẩm">
+      </div>
+    </div>
+    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" (click)="toogleDropDown()"
+      class="text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800"
+      type="button">{{select[1]}}<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+      </svg>
+
+    </button>
+    <div id="dropdown" [class.hidden]="!isOpenDropDown"
+      class="z-10 position-absolute bg-violet-500 top-10 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+        <li *ngFor="let select of selects">
+          <p (click)="handleChangeSelect(select)"
+            class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            {{select[1]}}</p>
+        </li>
+      </ul>
+    </div>
+
   </div>
-  <div class="search-box">
-    <input
-      type="text"
-      class="form-control search-input"
-      placeholder="Tìm sản phẩm"
-    />
-    <select name="" id="" class="form-control product-category">
-      <option selected disabled value="">Đồ điện tử</option>
-      <option value="">Đồ gia dụng</option>
-      <option value="">Đồ ăn</option>
-    </select>
-  </div>
+
+
   <div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="product-item">
-        <img
-          src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/427882540_1085590272712418_1570413981671402603_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHE2yHtFnMT4eekRLh49HgYObMxeKSqN6Y5szF4pKo3pt1ihcQVkh6DHOnGxSqSjEvlss8Voe1Jv22Ox9cPEym4&_nc_ohc=tEd0DUhlTcEQ7kNvgEAZdyZ&_nc_ht=scontent.fhan14-1.fna&gid=AcNTxB-43MiRx53iOGqZPqs&oh=00_AYCKAvZ_xrJrTqepcb_9mGIifWiV_bfRPGP7c4FvNqhXCA&oe=66B0C2C4"
-          alt="Product Image"
-          class="product-image"
-        />
-        <h3 class="product-name">Product 1</h3>
-        <p class="product-desciption">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis
-          voluptate cumque quis consequuntur facilis, facere sint delectus
-          dolores blanditiis laboriosam eveniet quod, perspiciatis quisquam?
-          Assumenda eveniet vel ipsam illo possimus!
-        </p>
-        <p class="product-warranty">Bảo hành: 12 tháng</p>
-        <p class="product-price">Giá: <del>$1200</del> $1100</p>
-        <div class="product-rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star-half-stroke"></i>
-        </div>
-        <div class="product-actions">
-          <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-          <span class="space-x"></span>
-          <button class="btn btn-success">Mua ngay</button>
-        </div>
-      </div>
+    <div *ngFor="let product of products" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <app-product [product]="product" />
     </div>
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="product-item">
-        <img
-          src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/427882540_1085590272712418_1570413981671402603_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHE2yHtFnMT4eekRLh49HgYObMxeKSqN6Y5szF4pKo3pt1ihcQVkh6DHOnGxSqSjEvlss8Voe1Jv22Ox9cPEym4&_nc_ohc=tEd0DUhlTcEQ7kNvgEAZdyZ&_nc_ht=scontent.fhan14-1.fna&gid=AcNTxB-43MiRx53iOGqZPqs&oh=00_AYCKAvZ_xrJrTqepcb_9mGIifWiV_bfRPGP7c4FvNqhXCA&oe=66B0C2C4"
-          alt="Product Image"
-          class="product-image"
-        />
-        <h3 class="product-name">Product 1</h3>
-        <p class="product-desciption">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis
-          voluptate cumque quis consequuntur facilis, facere sint delectus
-          dolores blanditiis laboriosam eveniet quod, perspiciatis quisquam?
-          Assumenda eveniet vel ipsam illo possimus!
-        </p>
-        <p class="product-warranty">Bảo hành: 12 tháng</p>
-        <p class="product-price">Giá: <del>$1200</del> $1100</p>
-        <div class="product-rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star-half-stroke"></i>
-        </div>
-        <div class="product-actions">
-          <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-          <span class="space-x"></span>
-          <button class="btn btn-success">Mua ngay</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="product-item">
-        <img
-          src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/427882540_1085590272712418_1570413981671402603_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHE2yHtFnMT4eekRLh49HgYObMxeKSqN6Y5szF4pKo3pt1ihcQVkh6DHOnGxSqSjEvlss8Voe1Jv22Ox9cPEym4&_nc_ohc=tEd0DUhlTcEQ7kNvgEAZdyZ&_nc_ht=scontent.fhan14-1.fna&gid=AcNTxB-43MiRx53iOGqZPqs&oh=00_AYCKAvZ_xrJrTqepcb_9mGIifWiV_bfRPGP7c4FvNqhXCA&oe=66B0C2C4"
-          alt="Product Image"
-          class="product-image"
-        />
-        <h3 class="product-name">Product 1</h3>
-        <p class="product-desciption">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis
-          voluptate cumque quis consequuntur facilis, facere sint delectus
-          dolores blanditiis laboriosam eveniet quod, perspiciatis quisquam?
-          Assumenda eveniet vel ipsam illo possimus!
-        </p>
-        <p class="product-warranty">Bảo hành: 12 tháng</p>
-        <p class="product-price">Giá: <del>$1200</del> $1100</p>
-        <div class="product-rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star-half-stroke"></i>
-        </div>
-        <div class="product-actions">
-          <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-          <span class="space-x"></span>
-          <button class="btn btn-success">Mua ngay</button>
-        </div>
-      </div>
-    </div>
+
   </div>
+  <app-pagination [(page)]="page" [totalPages]="totalPages" (pageChange)="getAllProducts()" />
 </div>
+
 <app-footer></app-footer>

@@ -1,0 +1,52 @@
+.header-text {
+  color: rgb(233, 66, 176);
+}
+
+.product-header {
+  color: rgb(233, 66, 176);
+}
+.product-order {
+  color: rgb(105, 244, 181);
+}
+.product-info {
+  display: flex;
+  align-items: center;
+}
+.product-image {
+  width: 100px;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.product-name {
+  margin-right: 10px;
+}
+
+table {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  border-collapse: separate;
+  border: 1px solid #fff;
+  border-spacing: 0;
+  background-color: rgb(12, 13, 54);
+}
+table th,
+table td {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.form-control {
+  background-color: rgb(19, 23, 42);
+  border: 1px solid rgb(29, 33, 54);
+  color: #fff;
+}
+.form-control:focus {
+  border-color: #fff;
+  background-color: rgb(19, 23, 42);
+}
+.form-label {
+  color: #fff;
+}/*# sourceMappingURL=order.component.css.map */
