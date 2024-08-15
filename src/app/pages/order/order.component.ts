@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartItem, Product, OrderRequest } from 'src/app/models';
+import { CartItem, Product, OrderRequest, UserResponse } from 'src/app/models';
 import {
   CartService,
   ProductService,
@@ -35,7 +35,14 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     if (!this.tokenService.getToken()) {
       this.router.navigate(['/login']);
-    } else  this.getAllProductsByIds();
+    } else {
+      this.getAllProductsByIds();
+      const { fullname, address, phone_number }: UserResponse =
+        this.tokenService.getUserResponseFromLocalStorage();
+      this.address = address;
+      this.fullName = fullname;
+      this.phone = phone_number;
+    }
   }
   getAllProductsByIds() {
     const cart = this.cartService.getCart();

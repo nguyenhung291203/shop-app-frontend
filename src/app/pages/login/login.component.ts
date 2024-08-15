@@ -25,7 +25,7 @@ export class LoginComponent {
     private tokenService: TokenService,
     private alertService: AlertService
   ) {
-    this.phone = '0869885513';
+    this.phone = '0869885512';
     this.password = '123456';
     this.isAccepted = false;
   }
@@ -37,12 +37,15 @@ export class LoginComponent {
       phone_number: this.phone,
       password: this.password,
     };
+
     this.isErrorPhone = this.phone.length === 0;
     this.isErrorPassword = this.password.length === 0;
     this.isError = this.isErrorPassword || this.isErrorPhone;
+
     if (!this.isError) {
       this.userService.login(loginData).subscribe({
         next: ({ message, data }: any) => {
+          
           this.tokenService.setToken(data);
           this.userService.getUserDetail(data).subscribe({
             next: (res: any) => {

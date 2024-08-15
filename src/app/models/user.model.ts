@@ -29,4 +29,5 @@ export interface UserResponse {
   facebook_account_id: number | null;
   google_account_id: number | null;
   role_id: number;
+  address: string;
 }

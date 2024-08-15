@@ -3,169 +3,178 @@
 // header
 
 .navbar {
+  background-color: $transparent-black !important;
+
+  .container {
     background-color: $transparent-black !important;
 
-    .container {
-        background-color: $transparent-black !important;
+    .navbar- {
+      &brand {
+        color: $light-blue-gray;
+      }
 
-        .navbar- {
-            &brand {
-                color: $light-blue-gray;
-            }
-
-            &nav {
-                &item-special {
-                    background-color: $neon-purple !important;
-                    margin-right: 10px;
-                }
-
-                .nav-link {
-                    color: $light-blue-gray;
-                    border-radius: 18px;
-                    padding: 8px 16px;
-                    transition: ease-in-out 0.3s;
-
-                    &.active,
-                    &:hover {
-                        background-color: $neon-purple !important;
-                        color: $white !important;
-                    }
-
-                    &-sign {
-                        border-radius: 10px;
-                        background-color: transparent !important;
-                        border: 1px solid $neon-purple !important;
-
-                    }
-                }
-
-            }
+      &nav {
+        &item-special {
+          background-color: $neon-purple !important;
+          margin-right: 10px;
         }
+
+        .nav-link {
+          color: $light-blue-gray;
+          border-radius: 18px;
+          padding: 8px 16px;
+          transition: ease-in-out 0.3s;
+
+          &.active,
+          &:hover {
+            background-color: $neon-purple !important;
+            color: $white !important;
+          }
+
+          &-sign {
+            border-radius: 10px;
+            background-color: transparent !important;
+            border: 1px solid $neon-purple !important;
+
+          }
+        }
+
+      }
     }
+  }
 }
 
 // end of header
 
 .hover {
-    color: $purple-indigo !important;
+  color: $purple-indigo !important;
 }
 
 .nav-link {
-    @apply transition duration-300 ease-in hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300
+  @apply transition duration-300 ease-in hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300
 }
 
 .btn-violet {
-    @apply  bg-violet-500 hover:scale-90 hover:font-bold border-2 border-solid border-violet-500 hover:bg-transparent;
+  @apply bg-violet-500 hover:scale-90 hover:font-bold border-2 border-solid border-violet-500 hover:bg-transparent;
 }
 
-.btn-transparent{
-    @apply bg-transparent hover:scale-90 hover:font-bold border-2 border-solid border-violet-500 hover:bg-violet-500;
+.btn-transparent {
+  @apply bg-transparent hover:scale-90 hover:font-bold border-2 border-solid border-violet-500 hover:bg-violet-500;
 }
 
 
 .tooltip-container {
-    position: relative;
-    background-color: #ff3cac;
-    background-image: linear-gradient(
-      225deg,
+  position: relative;
+  background-color: #ff3cac;
+  background-image: linear-gradient(225deg,
       #ff3cac 0%,
       #784ba0 50%,
-      #2b86c5 100%
-    );
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 17px;
-    /*padding: 0.7em 1.8em;*/
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    fill: #fff;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-  
-  .tooltip-container .borde-back {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(248, 250, 252, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    box-shadow: none;
-  }
-  
-  .tooltip-container .icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    background-color: #ff3cac;
-    background-image: linear-gradient(
-      225deg,
+      #2b86c5 100%);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 17px;
+  /*padding: 0.7em 1.8em;*/
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.tooltip-container .borde-back {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(248, 250, 252, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.tooltip-container .icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background-color: #ff3cac;
+  background-image: linear-gradient(225deg,
       #ff3cac 0%,
       #784ba0 50%,
-      #2b86c5 100%
-    );
-    cursor: pointer;
-    transition: 0.4s ease-in-out;
-  }
-  
-  .tooltip {
-    position: absolute;
-    top: -2;
-    z-index: -10;
-    transform: scaleX(0);
-    transform-origin: left center;
-    margin-left: 5px;
-    height: 50px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.6s;
-    border-radius: 0 50px 50px 0;
-    background-color: #ff3cac;
-    background-image: linear-gradient(
-      225deg,
+      #2b86c5 100%);
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+
+.tooltip {
+  position: absolute;
+  top: -2;
+  z-index: -10;
+  transform: scaleX(0);
+  transform-origin: left center;
+  margin-left: 5px;
+  height: 50px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s;
+  border-radius: 0 50px 50px 0;
+  background-color: #ff3cac;
+  background-image: linear-gradient(225deg,
       #ff3cac 0%,
       #784ba0 50%,
-      #2b86c5 100%
-    );
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    padding-right: 16px;
-    color: #fff;
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: 800px;
-    padding-left: 40px;
-    margin-left: -25px;
-    left: 100%;
+      #2b86c5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding-right: 16px;
+  color: #fff;
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: 800px;
+  padding-left: 40px;
+  margin-left: -25px;
+  left: 100%;
+}
+
+.tooltip-container:hover .tooltip {
+  transform: unset;
+  /* Altere para a posição desejada (a direita) */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: -10;
+}
+
+.tooltip-container:hover {
+  transform: translateX(-0px);
+  transition: 0.5s linear;
+}
+
+.tooltip-container:hover .icon {
+  transform: rotate(360deg);
+  transition: 0.5s linear;
+}
+
+.drop-menu {
+  display: none;
+
+}
+
+.avatar {
+  transition: ease-in-out 0.3s;
+
+  &:hover {
+    .drop-menu {
+      display: block;
+    }
+
   }
-  
-  .tooltip-container:hover .tooltip {
-    transform: unset;
-    /* Altere para a posição desejada (a direita) */
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    z-index: -10;
-  }
-  
-  .tooltip-container:hover {
-    transform: translateX(-0px);
-    transition: 0.5s linear;
-  }
-  
-  .tooltip-container:hover .icon {
-    transform: rotate(360deg);
-    transition: 0.5s linear;
-  }
-  
+}

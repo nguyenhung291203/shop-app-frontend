@@ -17,13 +17,16 @@ export class UserService {
     return this.apiService.post(this.apiUserUrl + '/login', loginData);
   }
   getUserDetail(token: string) {
-    return this.http.get(`${environment.apiBaseUrl}${this.apiUserUrl}/details`, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept-Language': 'vi',
-        Authorization: `Bearer ${token}`,
-      }),
-    });
+    return this.http.get(
+      `${environment.apiBaseUrl}${this.apiUserUrl}/details`,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept-Language': 'vi',
+          Authorization: `Bearer ${token}`,
+        }),
+      }
+    );
   }
   saveUserReponseToLocalStorage(userResponse: UserResponse) {
     if (userResponse) {

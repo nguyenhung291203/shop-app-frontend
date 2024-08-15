@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserResponse } from '../models';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +21,7 @@ export class TokenService {
     let userObject = this.jwtHelperService.decodeToken(this.getToken() ?? '');
     return 'userId' in userObject ? parseInt(userObject['userId']) : 0;
   }
-  getUserResponseFromLocalStorage() {
+  getUserResponseFromLocalStorage(): UserResponse {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
