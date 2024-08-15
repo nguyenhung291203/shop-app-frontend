@@ -7,16 +7,27 @@ import { AppComponent } from './app.component';
 import {
   HomeComponent,
   OrderComponent,
-  OrderConfirmComponent,
   LoginComponent,
   DetailProductComponent,
   RegisterComponent,
+  OrderDetailComponent,
+  OrderHistoryComponent,
 } from './pages';
-import { HeaderComponent,FooterComponent } from './layouts';
+import { HeaderComponent, FooterComponent } from './layouts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { LoadingComponent,ProductComponent,PaginationComponent } from './components';
-import { DiscountPipe } from './pipe';
+import {
+  LoadingComponent,
+  ProductComponent,
+  PaginationComponent,
+  OrderHistoryItemComponent,
+  ProductHistoryComponent,
+} from './components';
+import { DiscountPipe, RoundPipe } from './pipe';
+import { DateFormatPipe } from './pipe/date-format.pipe';
+import { ClickOutsideDirective } from './directive';
+import { HoverEffectDirective } from './directive/hover-effect.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +35,7 @@ import { DiscountPipe } from './pipe';
     HeaderComponent,
     FooterComponent,
     OrderComponent,
-    OrderConfirmComponent,
+    OrderDetailComponent,
     LoginComponent,
     RegisterComponent,
     DetailProductComponent,
@@ -32,6 +43,13 @@ import { DiscountPipe } from './pipe';
     DiscountPipe,
     ProductComponent,
     PaginationComponent,
+    RoundPipe,
+    OrderHistoryComponent,
+    OrderHistoryItemComponent,
+    ProductHistoryComponent,
+    DateFormatPipe,
+    ClickOutsideDirective,
+    HoverEffectDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
@@ -42,5 +60,6 @@ import { DiscountPipe } from './pipe';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [ClickOutsideDirective],
 })
 export class AppModule {}

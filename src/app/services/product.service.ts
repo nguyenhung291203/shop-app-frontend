@@ -24,4 +24,7 @@ export class ProductService {
   getProductById(id: number) {
     return this.apiService.get(`${this.apiProductUrl}/${id}`);
   }
+  getAllProductsByIds(ids:number[]){
+    return this.apiService.get(`${this.apiProductUrl}/by-ids?ids=${ids}`);
+  }
 }

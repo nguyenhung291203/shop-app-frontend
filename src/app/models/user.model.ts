@@ -19,3 +19,14 @@ export interface UserRegisterRequest {
   google_account_id: number | null;
   role_id: number;
 }
+
+export interface UserResponse {
+  id: number;
+  fullname: string;
+  phone_number: string;
+  is_active: boolean;
+  date_of_birth: Date;
+  facebook_account_id: number | null;
+  google_account_id: number | null;
+  role_id: number;
+}

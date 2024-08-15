@@ -1,4 +1,12 @@
 import { LoadingComponent } from './loading/loading.component';
 import { ProductComponent } from './product/product.component';
 import { PaginationComponent } from './pagination/pagination.component';
-export { LoadingComponent, ProductComponent, PaginationComponent };
+import { OrderHistoryItemComponent } from './order-history-item/order-history-item.component';
+import { ProductHistoryComponent } from './product-history/product-history.component';
+export {
+  LoadingComponent,
+  ProductComponent,
+  PaginationComponent,
+  OrderHistoryItemComponent,
+  ProductHistoryComponent,
+};

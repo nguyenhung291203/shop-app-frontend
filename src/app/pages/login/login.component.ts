@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserResponse } from 'src/app/models';
 import { AlertService } from 'src/app/services/alert.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,6 +17,7 @@ export class LoginComponent {
   isError: boolean = false;
   isErrorPhone: boolean = false;
   isErrorPassword: boolean = false;
+  userResponse!: UserResponse;
   @ViewChild('phoneInputElement') phoneInputElement!: ElementRef;
   constructor(
     private userService: UserService,
@@ -23,8 +25,8 @@ export class LoginComponent {
     private tokenService: TokenService,
     private alertService: AlertService
   ) {
-    this.phone = '';
-    this.password = '';
+    this.phone = '0869885513';
+    this.password = '123456';
     this.isAccepted = false;
   }
   ngAfterViewInit(): void {
@@ -40,9 +42,17 @@ export class LoginComponent {
     this.isError = this.isErrorPassword || this.isErrorPhone;
     if (!this.isError) {
       this.userService.login(loginData).subscribe({
-        next: (res: any) => {
-          const { message, token } = res;
-          this.alertService.signed(message);
+        next: ({ message, data }: any) => {
+          this.tokenService.setToken(data);
+          this.userService.getUserDetail(data).subscribe({
+            next: (res: any) => {
+              this.userResponse = res.data;
+              this.userService.saveUserReponseToLocalStorage(this.userResponse);
+              this.router.navigate(['']);
+              this.alertService.signed(message);
+            },
+            error: ({ error }: any) => this.alertService.error(error),
+          });
         },
         error: ({ error }: any) => {
           this.alertService.signFailure(error.message);

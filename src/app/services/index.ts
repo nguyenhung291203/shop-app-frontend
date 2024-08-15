@@ -7,6 +7,7 @@ import { CategoryService } from './category.service';
 import { ApiService } from './api.service';
 import { ProductImageService } from './product-image.service';
 import { CartService } from './cart.service';
+import { OrderService } from './order.service';
 export {
   UserService,
   TokenService,
@@ -17,4 +18,5 @@ export {
   ApiService,
   ProductImageService,
   CartService,
+  OrderService
 };

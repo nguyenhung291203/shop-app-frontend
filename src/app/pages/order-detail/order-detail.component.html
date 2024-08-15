@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 
 <div class="container">
   <section class="bg-white py-24 relative">
@@ -28,52 +28,30 @@
                 </div>
               </ul>
               <div class="w-full flex flex-col gap-5">
-                <div
+                <div *ngFor="let cartItem of cart"
                   class="grid grid-cols-12 w-full px-6 pb-5 justify-start items-center md:gap-8 gap-3 border-b border-gray-300">
                   <div
                     class="lg:col-span-4 md:col-span-5 col-span-12 justify-start items-center md:gap-6 gap-3 md:pb-5 flex md:flex-row flex-col">
-                    <img class="" src="https://pagedone.io/asset/uploads/1715681934.png" alt="Story Book image">
+                    <img class="w-24 h-24" [src]="cartItem.product.productUrl" [alt]="cartItem.product.name">
                     <div class="flex-col justify-start md:items-start items-center gap-1.5 inline-flex">
-                      <h4 class="text-gray-900 text-xl font-medium leading-8">Adventure Story Book</h4>
-                      <h6 class="text-gray-500 text-base font-normal leading-7">Drama, Adventure...</h6>
+                      <h4 class="text-gray-900 text-xl font-medium leading-8">{{cartItem.product.name}}</h4>
+                      <h6 class="text-gray-500 text-base font-normal leading-7">{{cartItem.product.description}}</h6>
                     </div>
                   </div>
                   <div
                     class="lg:col-span-8 md:col-span-7 col-span-12 w-full justify-start items-center md:gap-8 gap-3 flex md:flex-row flex-col">
                     <h5
                       class="md:col-span-2 col-span-12 w-full text-center text-gray-500 text-lg font-medium leading-8">
-                      $52.00</h5>
+                      ${{cartItem.product.price | round}}</h5>
                     <input type="text"
                       class="md:col-span-2 col-span-12 w-full focus:outline-none text-center text-gray-900 placeholder-gray-500 text-lg font-medium leading-8"
-                      placeholder="1">
+                      [placeholder]="cartItem.quantity">
                     <h5
                       class="md:col-span-2 col-span-12 w-full flex justify-center text-center text-gray-900 text-lg font-medium leading-8">
-                      $52.00</h5>
+                      ${{getTotalProduct(cartItem) | round}}</h5>
                   </div>
                 </div>
-                <div class="grid grid-cols-12 w-full px-6 pb-5 justify-start items-center md:gap-8 gap-3">
-                  <div
-                    class="lg:col-span-4 md:col-span-5 col-span-12 justify-start items-center md:gap-6 gap-3 flex md:flex-row flex-col">
-                    <img class="" src="https://pagedone.io/asset/uploads/1715681946.png"
-                      alt="Travelling Backpack image">
-                    <div class="flex-col justify-start md:items-start items-center gap-1.5 inline-flex">
-                      <h4 class="text-gray-900 text-xl font-medium leading-8">Travelling Backpack</h4>
-                      <h6 class="text-gray-500 text-base font-normal leading-7">Leather Material...</h6>
-                    </div>
-                  </div>
-                  <div
-                    class="lg:col-span-8 md:col-span-7 col-span-12 w-full justify-start items-center md:gap-8 gap-3 flex md:flex-row flex-col">
-                    <h5
-                      class="md:col-span-2 col-span-12 w-full text-center text-gray-500 text-lg font-medium leading-8">
-                      $60.00</h5>
-                    <input type="text"
-                      class="md:col-span-2 col-span-12 w-full focus:outline-none text-center text-gray-900 placeholder-gray-500 text-lg font-medium leading-8"
-                      placeholder="2">
-                    <h5
-                      class="md:col-span-2 col-span-12 w-full flex justify-center text-center text-gray-900 text-lg font-medium leading-8">
-                      $120.00</h5>
-                  </div>
-                </div>
+
               </div>
             </div>
             <div
@@ -81,7 +59,7 @@
               <div class="w-full px-5 pb-6 border-b border-gray-200 flex-col justify-start items-start gap-6 flex">
                 <div class="w-full justify-between items-start gap-6 inline-flex">
                   <h5 class="text-gray-500 text-lg font-normal leading-8">Tổng phụ</h5>
-                  <h5 class="text-right text-gray-900 text-lg font-semibold leading-8">$172.00</h5>
+                  <h5 class="text-right text-gray-900 text-lg font-semibold leading-8">${{getSubTotal() | round}}</h5>
                 </div>
                 <div class="w-full justify-between items-start gap-6 inline-flex">
                   <h5 class="text-gray-500 text-lg font-normal leading-8">Phí ship</h5>
@@ -94,7 +72,7 @@
               </div>
               <div class="px-5 pb-6 border-b border-gray-100 w-full justify-between items-start gap-6 inline-flex">
                 <h5 class="text-violet-600 text-xl font-semibold leading-8">Tổng tiền</h5>
-                <h5 class="text-right text-violet-600 text-xl font-semibold leading-8">$192.00</h5>
+                <h5 class="text-right text-violet-600 text-xl font-semibold leading-8">${{getTotal(40) | round}}</h5>
               </div>
             </div>
           </div>
@@ -116,5 +94,3 @@
   </section>
 
 </div>
-
-<app-footer></app-footer>

@@ -20,6 +20,14 @@ export class CartService {
   getCart(): Map<number, number> {
     return this.cart;
   }
+  removeCart(productId: number) {
+    this.cart.delete(productId);
+    this.saveCartToLocalStorage();
+  }
+  removeAllCart() {
+    this.cart.clear();
+    this.saveCartToLocalStorage();
+  }
   private saveCartToLocalStorage(): void {
     localStorage.setItem(
       'cart',

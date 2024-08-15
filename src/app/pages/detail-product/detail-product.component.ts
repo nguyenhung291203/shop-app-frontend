@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environments';
 import { Category, Product, ProductImage } from 'src/app/models';
 import {
@@ -10,13 +11,15 @@ import {
   CartService,
 } from 'src/app/services';
 
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
   styleUrls: ['./detail-product.component.scss'],
 })
 export class DetailProductComponent implements OnInit {
-  productId: number = 7;
+  productId!: number;
   product!: Product;
   category!: Category;
   productImages: string[] = [];
@@ -27,10 +30,16 @@ export class DetailProductComponent implements OnInit {
     private categoryService: CategoryService,
     private loadingService: LoadingService,
     private productImageService: ProductImageService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: ActivatedRoute
   ) {}
   ngOnInit(): void {
+    this.getProductId();
     this.getProductById(this.productId);
+  }
+  getProductId() {
+    const id = Number(this.router.snapshot.paramMap.get('id'));
+    this.productId = id;
   }
   getProductById(id: number) {
     this.loadingService.show();
@@ -76,7 +85,6 @@ export class DetailProductComponent implements OnInit {
     this.productImage = productImage;
   }
   addToCart() {
-    console.log('Them vao gio hang');
     this.cartService.addToCart(this.productId, this.quantity);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 // import { UserRegisterDTO } from 'src/app/dto/user/register.dto';
 import { UserRegisterRequest } from 'src/app/models';
 import { UserService, AlertService } from 'src/app/services';
@@ -23,7 +24,8 @@ export class RegisterComponent {
   @ViewChild('inputElement') inputElement!: ElementRef;
   constructor(
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.phone = '';
     this.password = '';
@@ -66,18 +68,16 @@ export class RegisterComponent {
       this.isErrorFullName ||
       this.isErrorPassword ||
       this.isErrorRetypePassword;
-    console.log(registerData);
 
     // if (!this.isError && this.isAccepted) {
     // if (this.password == this.retypePassword) {
     this.userService.register(registerData).subscribe({
       next: ({ message }: any) => {
-        console.log(message);
         this.alertService.signed(message);
+        this.router.navigate(['login']);
       },
 
       error: ({ error }: any) => {
-        console.log(error);
         error.message.this.alertService.signFailure(error.message);
       },
     });
