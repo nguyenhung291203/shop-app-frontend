@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserResponse } from 'src/app/models';
+import { LoadingService } from 'src/app/services';
 import { AlertService } from 'src/app/services/alert.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
@@ -23,7 +24,8 @@ export class LoginComponent {
     private userService: UserService,
     private router: Router,
     private tokenService: TokenService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) {
     this.phone = '0869885512';
     this.password = '123456';
@@ -43,18 +45,26 @@ export class LoginComponent {
     this.isError = this.isErrorPassword || this.isErrorPhone;
 
     if (!this.isError) {
+      this.loadingService.show();
       this.userService.login(loginData).subscribe({
         next: ({ message, data }: any) => {
-          
           this.tokenService.setToken(data);
+          console.log(data);
+
           this.userService.getUserDetail(data).subscribe({
             next: (res: any) => {
               this.userResponse = res.data;
               this.userService.saveUserReponseToLocalStorage(this.userResponse);
-              this.router.navigate(['']);
+              if (this.userResponse.role_id == 2)
+                this.router.navigate(['admin']);
+              else this.router.navigate(['']);
               this.alertService.signed(message);
             },
-            error: ({ error }: any) => this.alertService.error(error),
+            error: ({ error }: any) => {
+              this.alertService.error(error.message);
+              this.loadingService.hide();
+            },
+            complete: () => this.loadingService.hide(),
           });
         },
         error: ({ error }: any) => {

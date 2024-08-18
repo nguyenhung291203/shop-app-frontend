@@ -5,6 +5,7 @@ import {
   UserLoginResponse,
   UserRegisterRequest,
   UserResponse,
+  UserUpdateRequest,
 } from './user.model';
 import { CartItem, CartItemRequest } from './cart.model';
 import { ProductImage } from './product.image.model';
@@ -22,4 +23,5 @@ export {
   OrderDetailReponse,
   OrderResponse,
   UserResponse,
+  UserUpdateRequest,
 };

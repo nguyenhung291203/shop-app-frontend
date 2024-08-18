@@ -22,9 +22,7 @@ export class OrderHistoryComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    if (!this.tokenService.getToken()) {
-      this.router.navigate(['/login']);
-    } else this.getOrdersByUserId(this.getUserId());
+    this.getOrdersByUserId(this.getUserId());
   }
   getOrdersByUserId(userId: number) {
     this.loadindService.show();

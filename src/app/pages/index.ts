@@ -5,6 +5,8 @@ import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AdminComponent } from './admin/admin.component';
 export {
   HomeComponent,
   LoginComponent,
@@ -13,4 +15,6 @@ export {
   OrderDetailComponent,
   DetailProductComponent,
   OrderHistoryComponent,
+  UserProfileComponent,
+  AdminComponent
 };

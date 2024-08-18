@@ -33,16 +33,12 @@ export class OrderComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    if (!this.tokenService.getToken()) {
-      this.router.navigate(['/login']);
-    } else {
-      this.getAllProductsByIds();
-      const { fullname, address, phone_number }: UserResponse =
-        this.tokenService.getUserResponseFromLocalStorage();
-      this.address = address;
-      this.fullName = fullname;
-      this.phone = phone_number;
-    }
+    this.getAllProductsByIds();
+    const { fullname, address, phone_number }: UserResponse =
+      this.tokenService.getUserResponseFromLocalStorage();
+    this.address = address;
+    this.fullName = fullname;
+    this.phone = phone_number;
   }
   getAllProductsByIds() {
     const cart = this.cartService.getCart();
@@ -117,19 +113,27 @@ export class OrderComponent implements OnInit {
         };
       }),
     };
+    console.log(orderRequest);
+    
     this.loadingService.show();
     this.orderService.insertOrder(orderRequest).subscribe({
       next: ({ data, mess }: any) => {
+        console.log(orderRequest);
+        
         this.cartService.removeAllCart();
         this.cart = [];
         this.alertService.success('Tạo đơn hàng thành công');
       },
-      error: ({ error }: any) => {
+      error: (error: any) => {
+        console.log(error);
+        
         this.alertService.error(error.message);
         this.loadingService.hide();
-        console.log(error);
       },
       complete: () => this.loadingService.hide(),
     });
+  }
+  handleNavigate(productId: number) {
+    this.router.navigate([`/products/${productId}`]);
   }
 }

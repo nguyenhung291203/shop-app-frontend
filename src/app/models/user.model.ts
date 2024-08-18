@@ -7,6 +7,18 @@ export interface UserLoginRequest {
   password: string;
 }
 
+export interface UserUpdateRequest {
+  fullname: string;
+  phone_number: string;
+  address: string;
+  password: string;
+  retype_password: string;
+  date_of_birth: Date;
+  // facebook_accout_id: number | null;
+  // google_account_id: number | null;
+  role_id?: number;
+}
+
 export interface UserRegisterRequest {
   fullname: string;
   phone_number: string;

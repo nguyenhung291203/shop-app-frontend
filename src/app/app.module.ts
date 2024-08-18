@@ -27,6 +27,10 @@ import { DiscountPipe, RoundPipe } from './pipe';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { ClickOutsideDirective } from './directive';
 import { HoverEffectDirective } from './directive/hover-effect.directive';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { CalendarModule } from 'primeng/calendar';
+import { AdminComponent } from './pages/admin/admin.component';
+import { CartItemCountPipe } from './pipe/cart-item-count.pipe';
 
 @NgModule({
   declarations: [
@@ -50,8 +54,17 @@ import { HoverEffectDirective } from './directive/hover-effect.directive';
     DateFormatPipe,
     ClickOutsideDirective,
     HoverEffectDirective,
+    UserProfileComponent,
+    AdminComponent,
+    CartItemCountPipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    CalendarModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

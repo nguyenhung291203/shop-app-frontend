@@ -24,4 +24,7 @@ export class ApiService {
   post(url: string, data: any) {
     return this.http.post(this.apiUserUrl + url, data, this.getHeaders());
   }
+  put(url: string, data: any) {
+    return this.http.put(this.apiUserUrl + url, data, this.getHeaders());
+  }
 }

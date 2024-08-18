@@ -8,7 +8,10 @@ import {
   OrderDetailComponent,
   RegisterComponent,
   OrderHistoryComponent,
+  UserProfileComponent,
+  AdminComponent,
 } from './pages';
+import { adminGuard, authGuard } from './guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -28,14 +31,27 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrderComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'orders/:id',
     component: OrderDetailComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'order-history',
     component: OrderHistoryComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [adminGuard],
   },
 ];
 
