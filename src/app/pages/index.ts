@@ -6,6 +6,8 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { CartComponent } from './cart/cart.component';
 import { AdminComponent } from './admin/admin.component';
 export {
   HomeComponent,
@@ -16,5 +18,7 @@ export {
   DetailProductComponent,
   OrderHistoryComponent,
   UserProfileComponent,
-  AdminComponent
+  NotFoundComponent,
+  CartComponent,
+  AdminComponent,
 };

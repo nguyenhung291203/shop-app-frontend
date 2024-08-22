@@ -9,13 +9,17 @@ import {
   RegisterComponent,
   OrderHistoryComponent,
   UserProfileComponent,
+  NotFoundComponent,
+  CartComponent,
   AdminComponent,
+  
 } from './pages';
-import { adminGuard, authGuard } from './guard';
+import { adminGuard, authGuard, orderGuard } from './guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '', component: HomeComponent },
+
   {
     path: 'login',
     component: LoginComponent,
@@ -29,9 +33,14 @@ const routes: Routes = [
     component: DetailProductComponent,
   },
   {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'orders',
     component: OrderComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, orderGuard],
   },
   {
     path: 'orders/:id',
@@ -49,10 +58,11 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [adminGuard],
+    path:'admin',
+    component:AdminComponent,
+    canActivate:[adminGuard]
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

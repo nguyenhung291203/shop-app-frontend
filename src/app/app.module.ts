@@ -12,6 +12,7 @@ import {
   RegisterComponent,
   OrderDetailComponent,
   OrderHistoryComponent,
+  CartComponent,
 } from './pages';
 import { HeaderComponent, FooterComponent } from './layouts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -29,8 +30,11 @@ import { ClickOutsideDirective } from './directive';
 import { HoverEffectDirective } from './directive/hover-effect.directive';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { CalendarModule } from 'primeng/calendar';
-import { AdminComponent } from './pages/admin/admin.component';
+
 import { CartItemCountPipe } from './pipe/cart-item-count.pipe';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { MenuComponent } from './pages/admin/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -55,8 +59,12 @@ import { CartItemCountPipe } from './pipe/cart-item-count.pipe';
     ClickOutsideDirective,
     HoverEffectDirective,
     UserProfileComponent,
-    AdminComponent,
+
     CartItemCountPipe,
+    NotFoundComponent,
+    AdminComponent,
+    CartComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

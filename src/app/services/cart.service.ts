@@ -24,6 +24,10 @@ export class CartService {
     this.cart.delete(productId);
     this.saveCartToLocalStorage();
   }
+  removeCarts(productIds: number[]) {
+    productIds.forEach((productId) => this.cart.delete(productId));
+    this.saveCartToLocalStorage();
+  }
   removeAllCart() {
     this.cart.clear();
     this.saveCartToLocalStorage();
