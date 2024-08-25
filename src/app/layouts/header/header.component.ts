@@ -1,4 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  Renderer2,
+} from '@angular/core';
 import { UserResponse } from 'src/app/models';
 import { CartService, TokenService } from 'src/app/services';
 import { Router } from '@angular/router';
@@ -9,17 +16,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+
   cart!: Map<number, number>;
   isOpenMenu: boolean = false;
   isOpenBars: boolean = false;
   user!: UserResponse | null;
+  height!: number;
   constructor(
     private cartService: CartService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.cart = this.cartService.getCart();
   }
+
   ngOnInit(): void {
     this.getUserResponseFromLocalStorage();
   }
@@ -31,5 +42,8 @@ export class HeaderComponent implements OnInit {
     this.tokenService.removeUserResponse();
     this.user = null;
     this.router.navigate(['login']);
+  }
+  check() {
+    console.log('check');
   }
 }

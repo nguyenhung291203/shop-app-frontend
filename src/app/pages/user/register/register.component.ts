@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-// import { UserRegisterDTO } from 'src/app/dto/user/register.dto';
 import { UserRegisterRequest } from 'src/app/models';
-import { UserService, AlertService } from 'src/app/services';
+import { UserService, AlertService, LoadingService } from 'src/app/services';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -25,7 +24,8 @@ export class RegisterComponent {
   constructor(
     private userService: UserService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     this.phone = '';
     this.password = '';
@@ -71,14 +71,17 @@ export class RegisterComponent {
 
     // if (!this.isError && this.isAccepted) {
     // if (this.password == this.retypePassword) {
+    this.loadingService.show();
     this.userService.register(registerData).subscribe({
       next: ({ message }: any) => {
         this.alertService.signed(message);
+        this.loadingService.hide();
         this.router.navigate(['login']);
       },
 
       error: ({ error }: any) => {
-        error.message.this.alertService.signFailure(error.message);
+        this.loadingService.hide();
+        this.alertService.signFailure(error.message);
       },
     });
     // } else {

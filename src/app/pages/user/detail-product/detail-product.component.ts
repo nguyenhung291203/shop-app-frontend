@@ -9,6 +9,7 @@ import {
   CategoryService,
   ProductImageService,
   CartService,
+  OrderService,
 } from 'src/app/services';
 
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +32,9 @@ export class DetailProductComponent implements OnInit {
     private loadingService: LoadingService,
     private productImageService: ProductImageService,
     private cartService: CartService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private route: Router,
+    private orderService: OrderService
   ) {}
   ngOnInit(): void {
     this.getProductId();
@@ -86,5 +89,18 @@ export class DetailProductComponent implements OnInit {
   }
   addToCart() {
     this.cartService.addToCart(this.productId, this.quantity);
+  }
+  navigateToOrderPage() {
+    this.loadingService.show();
+
+    setTimeout(() => {
+      this.orderService.removeAllOrder();
+      this.orderService.insertOrderToLocalStorage(
+        this.productId,
+        this.quantity
+      );
+      this.route.navigate(['orders']);
+      this.loadingService.hide();
+    }, 300);
   }
 }

@@ -4,74 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import {
-  HomeComponent,
-  OrderComponent,
-  LoginComponent,
-  DetailProductComponent,
-  RegisterComponent,
-  OrderDetailComponent,
-  OrderHistoryComponent,
-  CartComponent,
-} from './pages';
-import { HeaderComponent, FooterComponent } from './layouts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import {
-  LoadingComponent,
-  ProductComponent,
-  PaginationComponent,
-  OrderHistoryItemComponent,
-  ProductHistoryComponent,
-} from './components';
-import { DiscountPipe, RoundPipe } from './pipe';
-import { DateFormatPipe } from './pipe/date-format.pipe';
-import { ClickOutsideDirective } from './directive';
-import { HoverEffectDirective } from './directive/hover-effect.directive';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+
 import { CalendarModule } from 'primeng/calendar';
 
-import { CartItemCountPipe } from './pipe/cart-item-count.pipe';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { AdminComponent } from './pages/admin/admin.component';
-import { MenuComponent } from './pages/admin/menu/menu.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    FooterComponent,
-    OrderComponent,
-    OrderDetailComponent,
-    LoginComponent,
-    RegisterComponent,
-    DetailProductComponent,
-    LoadingComponent,
-    DiscountPipe,
-    ProductComponent,
-    PaginationComponent,
-    RoundPipe,
-    OrderHistoryComponent,
-    OrderHistoryItemComponent,
-    ProductHistoryComponent,
-    DateFormatPipe,
-    ClickOutsideDirective,
-    HoverEffectDirective,
-    UserProfileComponent,
-
-    CartItemCountPipe,
-    NotFoundComponent,
-    AdminComponent,
-    CartComponent,
-    MenuComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+    // FormsModule,
     HttpClientModule,
     CalendarModule,
+    ComponentsModule,
   ],
   providers: [
     {
@@ -81,6 +29,6 @@ import { MenuComponent } from './pages/admin/menu/menu.component';
     },
   ],
   bootstrap: [AppComponent],
-  exports: [ClickOutsideDirective],
+  exports: [],
 })
 export class AppModule {}

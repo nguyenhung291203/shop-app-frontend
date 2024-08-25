@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environments';
-import { DiscountPipe } from '../../pipe';
-import { Product, Category } from '../../models';
+import { environment } from 'src/app/environments/environments';
+import { DiscountPipe } from 'src/app/pipe/discount.pipe';
+import { Product, Category } from 'src/app/models';
 import {
   LoadingService,
   ProductService,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartItem, Product } from 'src/app/models';
 import { CartService, ProductService } from 'src/app/services';
 import { environment } from 'src/app/environments/environments';
-import { RoundPipe } from 'src/app/pipe';
+
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',

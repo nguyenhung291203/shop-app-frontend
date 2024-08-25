@@ -106,9 +106,9 @@ export class CartComponent {
     this.router.navigate([`/products/${productId}`]);
   }
   handleCreateOrder() {
-    if (this.orders.size==0)
-      this.alertService.error("Bạn chưa chọn sản phẩm nào");
-    else{
+    if (this.orders.size == 0)
+      this.alertService.error('Bạn chưa chọn sản phẩm nào');
+    else {
       this.cartService.removeCarts(Array.from(this.orders.keys()));
       this.router.navigate(['/orders']);
     }

@@ -1,68 +1,5 @@
-<!-- <header class="mb-4">
-  <div class="py-3 px-6">
-    <div class="flex justify-between text-white">
-      <a href="#" class="tooltip-container">
-        <span class="tooltip">Shoppe fake</span>
-        <span class="text">
-          <div class="borde-back">
-            <div class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" class="bi bi-discord" viewBox="0 0 16 16">
-                <path
-                  d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z">
-                </path>
-              </svg>
-            </div>
-          </div>
-        </span>
-      </a>
-
-
-      <div class="ml-2 flex">
-        <a routerLink="order-history" class="nav-link flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
-            <path fill-rule="evenodd"
-              d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-              clip-rule="evenodd" />
-          </svg>
-          <span class="text-sm font-medium">Orders</span>
-        </a>
-
-        <a  class="nav-link flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 ">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-              clip-rule="evenodd" />
-          </svg>
-          <span class="text-sm font-medium">Favorites</span>
-        </a>
-
-        <a routerLink="orders" class="nav-link flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 ">
-          <div class="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-            </svg>
-            <span
-              class="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">{{cart.size}}</span>
-          </div>
-          <span class="text-sm font-medium">Cart</span>
-        </a>
-
-        <a routerLink="login" class="btn-violet nav-link ml-2 flex cursor-pointer items-center gap-x-1 rounded-md  py-2 px-4 ">
-          <span class="text-sm font-medium">Đăng nhập</span>
-        </a>
-        <a routerLink="register" class="btn-transparent nav-link ml-2 flex cursor-pointer items-center gap-x-1 rounded-md  py-2 px-4 ">
-          <span class="text-sm font-medium">Đăng ký</span>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</header> -->
-
-
-<nav class="container mb-4">
+<!-- sticky top-0 z-50 shadow-md -->
+<nav #navElement class="container mb-4 ">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -90,8 +27,8 @@
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
 
-            <a href="#" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Trang chủ</a>
-            <a href="#"
+            <a href="" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Trang chủ</a>
+            <a href=""
               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Yêu
               thích</a>
           </div>
@@ -107,7 +44,7 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
             </svg>
-            <span
+            <span *ngIf="user"
               class="absolute -top-2 left-4 rounded-full bg-red-500 p-0.5 px-2 text-sm text-red-50">{{cart.size | cartItemCount}}</span>
           </div>
 
@@ -132,10 +69,10 @@
             <a routerLink="/order-history" class="block px-4 py-2 text-sm text-gray-700 hover:text-violet-700"
               role="menuitem" tabindex="-1">Đơn mua</a>
 
-            <a *ngIf="user" (click)="logout()"
+            <span *ngIf="user" (click)="logout()"
               class="block px-4 py-2 text-sm text-gray-700 hover:text-violet-700 cursor-pointer" role="menuitem"
-              tabindex="-1">Đăng xuất</a>
-            <a *ngIf="!user" routerLink="/login" class="block px-4 py-2 text-sm text-gray-700 hover:text-violet-700"
+              tabindex="-1">Đăng xuất</span>
+            <a *ngIf="!user" routerLink="login" class="block px-4 py-2 text-sm text-gray-700 hover:text-violet-700"
               role="menuitem" tabindex="-1">Đăng nhập</a>
             <a *ngIf="!user" routerLink="/register" class="block px-4 py-2 text-sm text-gray-700 hover:text-violet-700"
               role="menuitem" tabindex="-1">Đăng ký</a>
@@ -147,11 +84,10 @@
   </div>
   <div [class.hidden]="!isOpenBars" class="sm:hidden" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2">
-
-      <a href="#"
+      <a href=""
         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Trang
         chủ</a>
-      <a href="#"
+      <a href=""
         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Yêu
         thích</a>
     </div>

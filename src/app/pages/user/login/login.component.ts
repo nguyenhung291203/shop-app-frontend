@@ -9,12 +9,12 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss', '../register/register.component.scss'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  phone: string;
-  password: string;
-  isAccepted: boolean;
+  phone: string = '0869885512';
+  password: string = '123456';
+  isAccepted: boolean = false;
   isError: boolean = false;
   isErrorPhone: boolean = false;
   isErrorPassword: boolean = false;
@@ -26,11 +26,7 @@ export class LoginComponent {
     private tokenService: TokenService,
     private alertService: AlertService,
     private loadingService: LoadingService
-  ) {
-    this.phone = '0869885512';
-    this.password = '123456';
-    this.isAccepted = false;
-  }
+  ) {}
   ngAfterViewInit(): void {
     this.phoneInputElement.nativeElement.focus();
   }
@@ -69,6 +65,7 @@ export class LoginComponent {
         },
         error: ({ error }: any) => {
           this.alertService.signFailure(error.message);
+          this.loadingService.hide();
           this.isError = true;
         },
       });
