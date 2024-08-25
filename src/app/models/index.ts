@@ -10,6 +10,7 @@ import {
 import { CartItem, CartItemRequest } from './cart.model';
 import { ProductImage } from './product.image.model';
 import { OrderRequest, OrderDetailReponse, OrderResponse } from './order.model';
+import { MenuChangeEvent } from './menu.change.event.model';
 export {
   Category,
   Product,
@@ -24,4 +25,5 @@ export {
   OrderResponse,
   UserResponse,
   UserUpdateRequest,
+  MenuChangeEvent,
 };

@@ -21,6 +21,15 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./admin/admin-routing.module').then(
+            (m) => m.AdminRoutingModule
+          ),
+      },
+    ],
     canActivate: [authGuard, adminGuard],
   },
   { path: '**', component: NotFoundComponent },

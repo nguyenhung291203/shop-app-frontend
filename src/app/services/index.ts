@@ -8,6 +8,8 @@ import { ApiService } from './api.service';
 import { ProductImageService } from './product-image.service';
 import { CartService } from './cart.service';
 import { OrderService } from './order.service';
+import { LayoutService } from './layout.service';
+import { MenuService } from './menu.service';
 export {
   UserService,
   TokenService,
@@ -18,5 +20,7 @@ export {
   ApiService,
   ProductImageService,
   CartService,
-  OrderService
+  OrderService,
+  LayoutService,
+  MenuService,
 };
