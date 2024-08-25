@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { adminGuard, authGuard } from '../guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,11 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'admin', component: AdminComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [authGuard, adminGuard],
+  },
   { path: '**', component: NotFoundComponent },
 ];
 
