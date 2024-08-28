@@ -20,6 +20,9 @@ export class UserService {
     private http: HttpClient,
     private tokenService: TokenService
   ) {}
+  getAllUsers() {
+    return this.apiService.get(this.apiUserUrl);
+  }
   register(registerData: UserRegisterRequest): Observable<any> {
     return this.apiService.post(this.apiUserUrl + '/register', registerData);
   }
@@ -45,6 +48,28 @@ export class UserService {
     if (userResponse) {
       const userResponseJSON = JSON.stringify(userResponse);
       localStorage.setItem('user', userResponseJSON);
+    }
+  }
+  getUserDetailFromLocalStorage(): UserResponse | null {
+    const userResponse = localStorage.getItem('user');
+    return userResponse ? JSON.parse(userResponse) : null;
+  }
+  setUserReponse(userUpdate: any) {
+    const userResponse = this.getUserDetailFromLocalStorage();
+    if (userResponse) {
+      if (userUpdate.fullname) {
+        userResponse.fullname = userUpdate.fullname;
+      }
+      if (userUpdate.phone_number) {
+        userResponse.phone_number = userUpdate.phone_number;
+      }
+      if (userUpdate.address) {
+        userResponse.address = userUpdate.address;
+      }
+      if (userUpdate.date_of_birth) {
+        userResponse.date_of_birth = userUpdate.date_of_birth;
+      }
+      this.saveUserReponseToLocalStorage(userResponse);
     }
   }
 }

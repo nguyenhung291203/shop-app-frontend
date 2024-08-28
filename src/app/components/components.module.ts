@@ -7,6 +7,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductHistoryComponent } from './product-history/product-history.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { OrderHistoryItemComponent } from './order-history-item/order-history-item.component';
+import { RatingComponent } from './rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { OrderHistoryItemComponent } from './order-history-item/order-history-it
     PaginationComponent,
     ProductComponent,
     ProductHistoryComponent,
-    OrderHistoryItemComponent
+    OrderHistoryItemComponent,
+    RatingComponent,
   ],
   imports: [CommonModule, PipeModule],
   exports: [
@@ -22,7 +24,8 @@ import { OrderHistoryItemComponent } from './order-history-item/order-history-it
     PaginationComponent,
     ProductComponent,
     ProductHistoryComponent,
-    OrderHistoryItemComponent
+    OrderHistoryItemComponent,
+    RatingComponent,
   ],
 })
 export class ComponentsModule {}

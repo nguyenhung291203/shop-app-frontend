@@ -62,6 +62,7 @@ export class UserProfileComponent implements OnInit {
     this.fullName = this.user.fullname;
     this.address = this.user.address;
     this.phone = this.user.phone_number;
+    this.password = '';
     this.dateOfBirth = this.user.date_of_birth;
   }
 }

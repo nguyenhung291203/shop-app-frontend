@@ -1,0 +1,274 @@
+<div class="row">
+  <div class="col-12 col-lg-6 col-xl-3 mb-4">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 text-gray-600	 font-medium mb-3">Đơn hàng</span>
+          <div class="text-900 font-medium text-xl">{{orders.length}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-blue-100 rounded-lg	"
+          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#3b82f6" class="size-6">
+            <path
+              d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+          </svg>
+        </div>
+      </div>
+      <span class="text-green-500	font-medium">24 new </span>
+      <span class="text-500">since last visit</span>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6 col-xl-3 mb-4">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 text-gray-600	 font-medium mb-3">Doanh thu</span>
+          <div class="text-900 font-medium text-xl">{{getRevenue() | currency: 'USD': 'symbol': '1.2-2'}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-orange-100 rounded-lg	"
+          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f97316" class="size-6">
+            <path fill-rule="evenodd"
+              d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+      <span class="text-green-500	font-medium">24 new </span>
+      <span class="text-500">since last visit</span>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6 col-xl-3 mb-4">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 text-gray-600	 font-medium mb-3">Khánh hàng</span>
+          <div class="text-900 font-medium text-xl">{{users.length}}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-cyan-100 rounded-lg	"
+          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#06b6d4" class="size-6">
+            <path fill-rule="evenodd"
+              d="M6.912 3a3 3 0 0 0-2.868 2.118l-2.411 7.838a3 3 0 0 0-.133.882V18a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-4.162c0-.299-.045-.596-.133-.882l-2.412-7.838A3 3 0 0 0 17.088 3H6.912Zm13.823 9.75-2.213-7.191A1.5 1.5 0 0 0 17.088 4.5H6.912a1.5 1.5 0 0 0-1.434 1.059L3.265 12.75H6.11a3 3 0 0 1 2.684 1.658l.256.513a1.5 1.5 0 0 0 1.342.829h3.218a1.5 1.5 0 0 0 1.342-.83l.256-.512a3 3 0 0 1 2.684-1.658h2.844Z"
+              clip-rule="evenodd" />
+          </svg>
+
+        </div>
+      </div>
+      <span class="text-green-500	font-medium">24 new </span>
+      <span class="text-500">since last visit</span>
+    </div>
+  </div>
+  <div class="col-12 col-lg-6 col-xl-3 mb-4">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 text-gray-600	 font-medium mb-3">Bình luận</span>
+          <div class="text-900 font-medium text-xl">1521 chưa đọc</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-purple-100 rounded-lg	"
+          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#a855f7" class="size-6">
+            <path fill-rule="evenodd"
+              d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97-1.94.284-3.916.455-5.922.505a.39.39 0 0 0-.266.112L8.78 21.53A.75.75 0 0 1 7.5 21v-3.955a48.842 48.842 0 0 1-2.652-.316c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z"
+              clip-rule="evenodd" />
+          </svg>
+
+        </div>
+      </div>
+      <span class="text-green-500	font-medium">24 new </span>
+      <span class="text-500">since last visit</span>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="card">
+      <h5>Recent Sales</h5>
+      <p-table [value]="products" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Image</th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
+            </th>
+            <th>View</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td style="width: 15%; min-width: 5rem;">
+              <img [src]="product.productUrl" class="shadow-4" alt="{{product.name}}" width="50">
+            </td>
+            <td style="width: 35%; min-width: 7rem;">{{product.name}}</td>
+            <td style="width: 35%; min-width: 8rem;">{{product.price | currency:'USD'}}</td>
+            <td style="width: 15%;">
+              <button pButton pRipple type="button" icon="pi pi-search"
+                class="p-button p-component p-button-text p-button-icon-only"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="card">
+      <div class="flex justify-content-between align-items-center mb-5">
+        <h5>Best Selling Products</h5>
+        <div>
+          <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+      <ul class="list-none p-0 m-0">
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Space T-Shirt</span>
+            <div class="mt-1 text-600">Clothing</div>
+          </div>
+          <div class="mt-2 md:mt-0 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-orange-500 h-full" [ngStyle]="{width: '50%'}"></div>
+            </div>
+            <span class="text-orange-500 ml-3 font-medium">%50</span>
+          </div>
+        </li>
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Portal Sticker</span>
+            <div class="mt-1 text-600">Accessories</div>
+          </div>
+          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-cyan-500 h-full" [ngStyle]="{width: '16%'}"></div>
+            </div>
+            <span class="text-cyan-500 ml-3 font-medium">%16</span>
+          </div>
+        </li>
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Supernova Sticker</span>
+            <div class="mt-1 text-600">Accessories</div>
+          </div>
+          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-pink-500 h-full" [ngStyle]="{width: '67%'}"></div>
+            </div>
+            <span class="text-pink-500 ml-3 font-medium">%67</span>
+          </div>
+        </li>
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Wonders Notebook</span>
+            <div class="mt-1 text-600">Office</div>
+          </div>
+          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-green-500 h-full" [ngStyle]="{width: '35%'}"></div>
+            </div>
+            <span class="text-green-500 ml-3 font-medium">%35</span>
+          </div>
+        </li>
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
+            <div class="mt-1 text-600">Accessories</div>
+          </div>
+          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-purple-500 h-full" [ngStyle]="{width: '75%'}"></div>
+            </div>
+            <span class="text-purple-500 ml-3 font-medium">%75</span>
+          </div>
+        </li>
+        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+          <div>
+            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
+            <div class="mt-1 text-600">Clothing</div>
+          </div>
+          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
+              <div class="bg-teal-500 h-full" [ngStyle]="{width: '40%'}"></div>
+            </div>
+            <span class="text-teal-500 ml-3 font-medium">%40</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="card">
+      <h5>Sales Overview</h5>
+      <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+    </div>
+
+    <div class="card">
+      <div class="flex align-items-center justify-content-between mb-4">
+        <h5>Notifications</h5>
+        <div>
+          <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+
+      <span class="block text-600 font-medium mb-3">TODAY</span>
+      <ul class="p-0 mx-0 mt-0 mb-4 list-none">
+        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+          <div
+            class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+            <i class="pi pi-dollar text-xl text-blue-500"></i>
+          </div>
+          <span class="text-900 line-height-3">Richard Jones
+            <span class="text-700"> has purchased a blue t-shirt for <span class="text-blue-500">79$</span></span>
+          </span>
+        </li>
+        <li class="flex align-items-center py-2">
+          <div
+            class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
+            <i class="pi pi-download text-xl text-orange-500"></i>
+          </div>
+          <span class="text-700 line-height-3">Your request for withdrawal of <span
+              class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
+        </li>
+      </ul>
+
+      <span class="block text-600 font-medium mb-3">YESTERDAY</span>
+      <ul class="p-0 m-0 list-none">
+        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+          <div
+            class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+            <i class="pi pi-dollar text-xl text-blue-500"></i>
+          </div>
+          <span class="text-900 line-height-3">Keyser Wick
+            <span class="text-700"> has purchased a black jacket for <span class="text-blue-500">59$</span></span>
+          </span>
+        </li>
+        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+          <div
+            class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
+            <i class="pi pi-question text-xl text-pink-500"></i>
+          </div>
+          <span class="text-900 line-height-3">Jane Davis<span class="text-700"> has posted a new questions about your
+              product.</span></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
+      [ngStyle]="{borderRadius: '1rem', background: 'linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1C80CF 47.88%, #FFFFFF 100.01%)'}">
+      <div>
+        <div class="text-blue-100 font-medium text-xl mt-2 mb-3">TAKE THE NEXT STEP</div>
+        <div class="text-white font-medium text-5xl">Try PrimeBlocks</div>
+      </div>
+      <div class="mt-4 mr-auto md:mt-0 md:mr-0">
+        <a target="_blank" href="https://www.primefaces.org/primeblocks-ng"
+          class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import {
   ProductImageService,
   CartService,
   OrderService,
+  TokenService,
 } from 'src/app/services';
 
 import { ActivatedRoute } from '@angular/router';
@@ -34,7 +35,8 @@ export class DetailProductComponent implements OnInit {
     private cartService: CartService,
     private router: ActivatedRoute,
     private route: Router,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private tokenService: TokenService
   ) {}
   ngOnInit(): void {
     this.getProductId();
@@ -88,7 +90,11 @@ export class DetailProductComponent implements OnInit {
     this.productImage = productImage;
   }
   addToCart() {
-    this.cartService.addToCart(this.productId, this.quantity);
+    if (this.tokenService.getToken()) {
+      this.cartService.addToCart(this.productId, this.quantity);
+    } else {
+      this.route.navigate(['login']);
+    }
   }
   navigateToOrderPage() {
     this.loadingService.show();

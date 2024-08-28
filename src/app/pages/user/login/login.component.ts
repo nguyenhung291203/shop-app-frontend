@@ -45,7 +45,6 @@ export class LoginComponent {
       this.userService.login(loginData).subscribe({
         next: ({ message, data }: any) => {
           this.tokenService.setToken(data);
-          console.log(data);
 
           this.userService.getUserDetail(data).subscribe({
             next: (res: any) => {
@@ -53,14 +52,19 @@ export class LoginComponent {
               this.userService.saveUserReponseToLocalStorage(this.userResponse);
               if (this.userResponse.role_id == 2)
                 this.router.navigate(['admin']);
-              else this.router.navigate(['']);
+              else {
+                this.router.navigate(['']);
+              }
               this.alertService.signed(message);
+              this.tokenService.setLoggedIn$(true);
             },
             error: ({ error }: any) => {
               this.alertService.error(error.message);
               this.loadingService.hide();
             },
-            complete: () => this.loadingService.hide(),
+            complete: () => {
+              this.loadingService.hide();
+            },
           });
         },
         error: ({ error }: any) => {

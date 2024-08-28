@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserResponse } from '../models';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
   private readonly TOKEN_KEY = 'access_token';
   private jwtHelperService: JwtHelperService = new JwtHelperService();
+  private logedInSubject = new BehaviorSubject<boolean>(
+    this.getToken() != null
+  );
+  loggedIn$: Observable<boolean> = this.logedInSubject.asObservable();
   constructor() {}
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY) || null;
@@ -28,5 +33,8 @@ export class TokenService {
   removeUserResponse() {
     localStorage.removeItem('user');
     this.removeToken();
+  }
+  setLoggedIn$(value: boolean) {
+    this.logedInSubject.next(value);
   }
 }

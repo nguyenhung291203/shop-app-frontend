@@ -13,7 +13,7 @@ export class CartService {
   }
   addToCart(productId: number, quantity: number = 1) {
     if (this.cart.has(productId))
-      this.cart.set(productId, this.cart.get(productId)! + quantity);
+      this.cart.set(productId, this.cart.get(productId) ?? 1 + quantity);
     else this.cart.set(productId, quantity);
     this.saveCartToLocalStorage();
   }

@@ -10,16 +10,17 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
 
 import { ComponentsModule } from './components/components.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // FormsModule,
     HttpClientModule,
     CalendarModule,
     ComponentsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

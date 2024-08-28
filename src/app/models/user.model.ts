@@ -38,8 +38,8 @@ export interface UserResponse {
   phone_number: string;
   is_active: boolean;
   date_of_birth: Date;
-  facebook_account_id: number | null;
-  google_account_id: number | null;
+  facebook_account_id?: number | null;
+  google_account_id?: number | null;
   role_id: number;
   address: string;
 }

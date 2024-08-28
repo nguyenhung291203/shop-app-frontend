@@ -16,17 +16,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   cart!: Map<number, number>;
   isOpenMenu: boolean = false;
   isOpenBars: boolean = false;
   user!: UserResponse | null;
+  logedIn$ = this.tokenService.loggedIn$;
   height!: number;
   constructor(
     private cartService: CartService,
     private tokenService: TokenService,
-    private router: Router,
-    private renderer: Renderer2
+    private router: Router
   ) {
     this.cart = this.cartService.getCart();
   }
@@ -41,9 +40,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.tokenService.removeUserResponse();
     this.user = null;
+    this.tokenService.setLoggedIn$(false);
     this.router.navigate(['login']);
-  }
-  check() {
-    console.log('check');
   }
 }

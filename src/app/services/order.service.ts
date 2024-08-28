@@ -14,6 +14,10 @@ export class OrderService {
     const stored = localStorage.getItem('orders');
     if (stored) this.orders = new Map(JSON.parse(stored));
   }
+
+  getAllOrders() {
+    return this.apiService.get(`${this.apiOrderUrl}`);
+  }
   insertOrder(orderRequest: OrderRequest) {
     return this.apiService.post(`${this.apiOrderUrl}`, orderRequest);
   }
@@ -31,8 +35,9 @@ export class OrderService {
     this.saveOrdersToLocalStorage();
   }
   insertOrderToLocalStorage(productId: number, quantity: number = 1) {
-    if (this.orders.has(productId)) this.removeOrder(productId);
-    else this.orders.set(productId, quantity);
+    if (this.orders.has(productId)) {
+      this.removeOrder(productId);
+    } else this.orders.set(productId, quantity);
     this.saveOrdersToLocalStorage();
   }
   removeOrder(productId: number) {
