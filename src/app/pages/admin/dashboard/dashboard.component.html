@@ -83,192 +83,84 @@
     </div>
   </div>
 
-  <div class="col-12 col-xl-6">
-    <div class="card">
-      <h5>Recent Sales</h5>
-      <p-table [value]="products" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
+  <div class="col-12 mb-4">
+    <div *ngIf="pageProduct" class="card">
+      <table class="w-full text-sm text-left rtl:text-right ">
+        <thead class="text-xs uppercase bg-gray-50">
           <tr>
-            <th>Image</th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+            <th scope="col" class="px-6 py-3">
             </th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
+            <th scope="col" class="px-6 py-3">
+              Sản phẩm
             </th>
-            <th>View</th>
+            <th scope="col" class="px-6 py-3">
+              Thể loại
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Giá
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Lượt mua
+            </th>
           </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr>
-            <td style="width: 15%; min-width: 5rem;">
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of pageProduct.content" class="odd:bg-white  even:bg-gray-50">
+            <th scope="row" class="px-6 py-4">
               <img [src]="product.productUrl" class="shadow-4" alt="{{product.name}}" width="50">
+            </th>
+            <th scope="row" class="px-6 py-4">
+              {{product.name}}
+            </th>
+            <td class="px-6 py-4">
+              {{getCategoryById(product.category_id)}}
             </td>
-            <td style="width: 35%; min-width: 7rem;">{{product.name}}</td>
-            <td style="width: 35%; min-width: 8rem;">{{product.price | currency:'USD'}}</td>
-            <td style="width: 15%;">
-              <button pButton pRipple type="button" icon="pi pi-search"
-                class="p-button p-component p-button-text p-button-icon-only"></button>
+            <td class="px-6 py-4">
+              {{product.price}}
+            </td>
+            <td class="px-6 py-4">
+              {{product.sold}}
             </td>
           </tr>
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="card">
-      <div class="flex justify-content-between align-items-center mb-5">
-        <h5>Best Selling Products</h5>
-        <div>
-          <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain"
-            (click)="menu.toggle($event)"></button>
-          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <nav class="flex justify-end items-center gap-x-1" aria-label="Pagination">
+        <button type="button" (click)="handleChangePage(-1)" [disabled]="param.page==1"
+          class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none   dark:focus:bg-white/10"
+          aria-label="Previous">
+          <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+          <span class="sr-only">Previous</span>
+        </button>
+        <div class="flex items-center gap-x-1">
+          <span
+            class="min-h-[38px] min-w-[38px] flex justify-center items-center border border-gray-200 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 text-gray-500 dark:focus:bg-white/10">{{this.param.page}}</span>
+          <span
+            class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm dark:text-neutral-500">of</span>
+          <span
+            class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm dark:text-neutral-500">{{pageProduct.totalPages}}</span>
         </div>
-      </div>
-      <ul class="list-none p-0 m-0">
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Space T-Shirt</span>
-            <div class="mt-1 text-600">Clothing</div>
-          </div>
-          <div class="mt-2 md:mt-0 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-orange-500 h-full" [ngStyle]="{width: '50%'}"></div>
-            </div>
-            <span class="text-orange-500 ml-3 font-medium">%50</span>
-          </div>
-        </li>
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Portal Sticker</span>
-            <div class="mt-1 text-600">Accessories</div>
-          </div>
-          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-cyan-500 h-full" [ngStyle]="{width: '16%'}"></div>
-            </div>
-            <span class="text-cyan-500 ml-3 font-medium">%16</span>
-          </div>
-        </li>
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Supernova Sticker</span>
-            <div class="mt-1 text-600">Accessories</div>
-          </div>
-          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-pink-500 h-full" [ngStyle]="{width: '67%'}"></div>
-            </div>
-            <span class="text-pink-500 ml-3 font-medium">%67</span>
-          </div>
-        </li>
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Wonders Notebook</span>
-            <div class="mt-1 text-600">Office</div>
-          </div>
-          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-green-500 h-full" [ngStyle]="{width: '35%'}"></div>
-            </div>
-            <span class="text-green-500 ml-3 font-medium">%35</span>
-          </div>
-        </li>
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
-            <div class="mt-1 text-600">Accessories</div>
-          </div>
-          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-purple-500 h-full" [ngStyle]="{width: '75%'}"></div>
-            </div>
-            <span class="text-purple-500 ml-3 font-medium">%75</span>
-          </div>
-        </li>
-        <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-          <div>
-            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
-            <div class="mt-1 text-600">Clothing</div>
-          </div>
-          <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-              <div class="bg-teal-500 h-full" [ngStyle]="{width: '40%'}"></div>
-            </div>
-            <span class="text-teal-500 ml-3 font-medium">%40</span>
-          </div>
-        </li>
-      </ul>
+        <button type="button" (click)="handleChangePage(1)" [disabled]="param.page == pageProduct.totalPages"
+          class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none  dark:focus:bg-white/10"
+          aria-label="Next">
+          <span class="sr-only">Next</span>
+          <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </nav>
+      <!-- End Pagination -->
     </div>
   </div>
 
-  <div class="col-12 col-xl-6">
+  <div class="col-12">
     <div class="card">
       <h5>Sales Overview</h5>
       <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
-    </div>
-
-    <div class="card">
-      <div class="flex align-items-center justify-content-between mb-4">
-        <h5>Notifications</h5>
-        <div>
-          <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain"
-            (click)="menu.toggle($event)"></button>
-          <p-menu #menu [popup]="true" [model]="items"></p-menu>
-        </div>
-      </div>
-
-      <span class="block text-600 font-medium mb-3">TODAY</span>
-      <ul class="p-0 mx-0 mt-0 mb-4 list-none">
-        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-          <div
-            class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-            <i class="pi pi-dollar text-xl text-blue-500"></i>
-          </div>
-          <span class="text-900 line-height-3">Richard Jones
-            <span class="text-700"> has purchased a blue t-shirt for <span class="text-blue-500">79$</span></span>
-          </span>
-        </li>
-        <li class="flex align-items-center py-2">
-          <div
-            class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-            <i class="pi pi-download text-xl text-orange-500"></i>
-          </div>
-          <span class="text-700 line-height-3">Your request for withdrawal of <span
-              class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
-        </li>
-      </ul>
-
-      <span class="block text-600 font-medium mb-3">YESTERDAY</span>
-      <ul class="p-0 m-0 list-none">
-        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-          <div
-            class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-            <i class="pi pi-dollar text-xl text-blue-500"></i>
-          </div>
-          <span class="text-900 line-height-3">Keyser Wick
-            <span class="text-700"> has purchased a black jacket for <span class="text-blue-500">59$</span></span>
-          </span>
-        </li>
-        <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-          <div
-            class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-            <i class="pi pi-question text-xl text-pink-500"></i>
-          </div>
-          <span class="text-900 line-height-3">Jane Davis<span class="text-700"> has posted a new questions about your
-              product.</span></span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
-      [ngStyle]="{borderRadius: '1rem', background: 'linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1C80CF 47.88%, #FFFFFF 100.01%)'}">
-      <div>
-        <div class="text-blue-100 font-medium text-xl mt-2 mb-3">TAKE THE NEXT STEP</div>
-        <div class="text-white font-medium text-5xl">Try PrimeBlocks</div>
-      </div>
-      <div class="mt-4 mr-auto md:mt-0 md:mr-0">
-        <a target="_blank" href="https://www.primefaces.org/primeblocks-ng"
-          class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised">
-          Get Started
-        </a>
-      </div>
     </div>
   </div>
 </div>

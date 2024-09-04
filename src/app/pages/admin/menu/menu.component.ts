@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
           {
             label: 'Sản phẩm',
             icon: 'pi pi-fw pi-box',
-            routerLink: ['/admin/products'],
+            routerLink: ['/admin/manager-products'],
           },
           {
             label: 'Thể loại',

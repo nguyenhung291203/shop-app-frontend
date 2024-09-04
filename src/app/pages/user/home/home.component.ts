@@ -42,13 +42,12 @@ export class HomeComponent implements OnInit {
   getAllProducts() {
     this.loadingService.show();
     this.productService
-      .getAllProducts(
-        this.search.trim(),
-        this.page,
-        this.limit,
-        this.sortBy,
-        this.sortDir
-      )
+      .getAllProducts(this.search.trim(), {
+        page: this.page,
+        limit: this.limit,
+        sortBy: this.sortBy,
+        sortDir: this.sortDir,
+      })
       .subscribe({
         next: ({ data, message }: any) => {
           data.contents.forEach(
@@ -79,6 +78,11 @@ export class HomeComponent implements OnInit {
     this.sortBy = this.select[0][0];
     this.sortDir = this.select[0][1];
     this.isOpenDropDown = false;
+    this.page = 1;
+    this.getAllProducts();
+  }
+  handleChangeSearch() {
+    this.page = 1;
     this.getAllProducts();
   }
 }

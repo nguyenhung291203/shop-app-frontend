@@ -1,6 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { OrderResponse, Product, UserResponse } from 'src/app/models';
+import {
+  Category,
+  OrderResponse,
+  Param,
+  Product,
+  UserResponse,
+} from 'src/app/models';
 import {
   ProductService,
   LayoutService,
@@ -8,10 +14,17 @@ import {
   LoadingService,
   AlertService,
   UserService,
+  CategoryService,
 } from 'src/app/services';
 import { Subscription, debounceTime } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
-
+import { Page } from 'src/app/models';
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
+}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,12 +34,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   items!: MenuItem[];
   users: UserResponse[] = [];
   products: Product[] = [];
+  pageProduct!: Page<Product>;
   orders: OrderResponse[] = [];
+  categories: Category[] = [];
   chartData: any;
-
   chartOptions: any;
-
   subscription!: Subscription;
+  param: Param = {
+    page: 1,
+    limit: 5,
+    sortBy: 'sold',
+    sortDir: 'desc',
+  };
 
   constructor(
     private productService: ProductService,
@@ -34,7 +53,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private loadingService: LoadingService,
     private alertService: AlertService,
-    private userService: UserService
+    private userService: UserService,
+    private categoryService: CategoryService
   ) {
     this.subscription = this.layoutService.configUpdate$
       .pipe(debounceTime(25))
@@ -48,6 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getAllProducts();
     this.getAllOrders();
     this.getAllUsers();
+    this.getAllCategories();
     this.items = [
       { label: 'Add New', icon: 'pi pi-fw pi-plus' },
       { label: 'Remove', icon: 'pi pi-fw pi-minus' },
@@ -114,15 +135,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     };
   }
+  getAllCategories() {
+    this.loadingService.show();
+    this.categoryService.getAllCategories().subscribe({
+      next: ({ data, message }) => {
+        this.categories = data;
+        this.loadingService.hide();
+      },
+      error: ({ error }) => {
+        this.alertService.error(error.message);
+        this.loadingService.hide();
+      },
+    });
+  }
   getAllProducts() {
     this.loadingService.show();
-    this.productService.getAllProducts().subscribe({
+    this.productService.getAllProducts('', this.param).subscribe({
       next: ({ data, message }) => {
         data.contents.forEach(
           (product: Product) =>
             (product.productUrl = `${environment.apiBaseUrl}products/images/${product.thumbnail}`)
         );
-        this.products = data.contents;
+        this.pageProduct = {
+          ...data,
+          content: data.contents,
+        };
+        // this.products = data.contents;
         this.loadingService.hide();
       },
       error: ({ error }) => {
@@ -149,8 +187,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userService.getAllUsers().subscribe({
       next: ({ data }) => {
         this.users = data.filter((user: UserResponse) => user.role_id === 1);
-        console.log(this.users);
-
         this.loadingService.hide();
       },
       error: ({ error }) => {
@@ -159,6 +195,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     });
   }
+  getCategoryById(categoryId: number): string {
+    return this.categories.find((category) => category.id == categoryId)?.name!;
+  }
   getRevenue(): number {
     return this.orders.reduce((total, item) => total + item.totalMoney, 0);
   }
@@ -166,5 +205,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+  onPageChange(event: PageEvent) {
+    this.param = { ...this.param, page: event.first, limit: event.rows };
+  }
+  handleChangePage(value: number) {
+    this.param = { ...this.param, page: this.param.page! + value };
+    this.getAllProducts();
   }
 }

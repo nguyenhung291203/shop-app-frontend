@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderResponse, Product } from 'src/app/models';
+import { OrderResponse, Param, Product } from 'src/app/models';
 import {
   LoadingService,
   OrderService,
@@ -15,6 +15,14 @@ import {
 })
 export class OrderHistoryComponent implements OnInit {
   orders: OrderResponse[] = [];
+  statusCurrent: string = 'ALL';
+  param: Param = {
+    page: 1,
+    limit: 5,
+    sortBy: 'id',
+    sortDir: 'asc',
+  };
+
   constructor(
     private orderService: OrderService,
     private loadindService: LoadingService,
@@ -22,13 +30,27 @@ export class OrderHistoryComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.getOrdersByUserId(this.getUserId());
+    // this.getOrdersByUserId(this.getUserId());
+    this.findByUserIdAndKeyword(this.getUserId(), '', this.param);
   }
   getOrdersByUserId(userId: number) {
     this.loadindService.show();
     this.orderService.getOrdersByUserId(userId).subscribe({
       next: ({ data }: any) => {
+        console.log(data);
+
         this.orders = data;
+      },
+      error: ({ error }: any) => console.log(error),
+      complete: () => this.loadindService.hide(),
+    });
+  }
+  findByUserIdAndKeyword(userId: number, keyword: string, param: Param) {
+    this.loadindService.show();
+    this.orderService.findByUserIdAndKeyword(userId, keyword, param).subscribe({
+      next: ({ data }: any) => {
+        console.log(data);
+        this.orders = data.contents;
       },
       error: ({ error }: any) => console.log(error),
       complete: () => this.loadindService.hide(),
@@ -37,4 +59,10 @@ export class OrderHistoryComponent implements OnInit {
   getUserId() {
     return this.tokenService.getUserId();
   }
+  handleChangeStatusCurrent(value: string) {
+    this.statusCurrent = value;
+    this.findByUserIdAndKeyword(this.getUserId(), value, this.param);
+
+  }
+
 }

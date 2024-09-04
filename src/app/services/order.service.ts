@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { OrderRequest } from '../models';
+import { OrderRequest, Param } from '../models';
 import { environment } from '../environments/environments';
 import { Router } from '@angular/router';
+import { generateParam } from '../utils';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +28,18 @@ export class OrderService {
   getOrdersByUserId(userId: number) {
     return this.apiService.get(`${this.apiOrderUrl}/users/${userId}`);
   }
+  findByUserIdAndKeyword(userId: number, keyword: string = '', param: Param) {
+    return this.apiService.get(
+      `${
+        this.apiOrderUrl
+      }/users/${userId}/search?keyword=${keyword}&${generateParam(param)}`
+    );
+  }
   getOrdersFromLocalStorage() {
     return this.orders;
   }
   changeQuantityOrder(productId: number, quantity: number = 1) {
-    this.orders.set(productId, this.orders.get(productId)! + quantity);
+    this.orders.set(productId, this.orders.get(productId) ?? 0 + quantity);
     this.saveOrdersToLocalStorage();
   }
   insertOrderToLocalStorage(productId: number, quantity: number = 1) {

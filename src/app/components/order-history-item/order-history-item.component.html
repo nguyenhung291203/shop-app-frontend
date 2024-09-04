@@ -2,7 +2,8 @@
   <div class="flex max-md:flex-col items-center justify-between px-3 md:px-11">
     <div class="data">
       <p class="font-medium text-lg leading-8 text-black whitespace-nowrap">Order : {{order.id}}</p>
-      <p class="font-medium text-lg leading-8 text-black mt-3 whitespace-nowrap">Order Payment : {{order.created_date}}
+      <p class="font-medium text-lg leading-8 text-black mt-3 whitespace-nowrap">Phương thức thanh toán :
+        <span class="text-gray-500">{{order.payment_method | payment}}</span>
       </p>
     </div>
     <div class="flex items-center gap-3 max-md:mt-5">
@@ -27,7 +28,7 @@
         </svg>
       </ng-container>
 
-      
+
     </app-product-history>
   </ng-container>
 

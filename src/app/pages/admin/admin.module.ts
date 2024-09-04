@@ -17,6 +17,9 @@ import { ChartModule } from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuitemComponent } from './menu/menuitem/menuitem.component';
 import { PipeModule } from 'src/app/pipe/pipe.module';
+import { ComponentsModule } from '../../components/components.module';
+import { PaginatorModule } from 'primeng/paginator';
+import { ManagerProductsComponent } from './manager-products/manager-products.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
     FooterComponent,
     DashboardComponent,
     MenuitemComponent,
+    ManagerProductsComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +41,8 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
     MenuModule,
     ChartModule,
     PipeModule,
+    ComponentsModule,
+    PaginatorModule,
   ],
   exports: [AdminComponent],
 })

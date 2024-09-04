@@ -24,6 +24,12 @@ export class OrderComponent implements OnInit, OnDestroy {
   email: string = '';
   phone: string = '';
   address: string = '';
+  note: string = 'Chú thích...';
+  payment_methods: [string, string][] = [
+    ['cash', 'Tiền mặt'],
+    ['tranfer', 'Chuyển khoản'],
+  ];
+  payment_method: string = this.payment_methods[0][0];
   constructor(
     private cartService: CartService,
     private productService: ProductService,
@@ -103,9 +109,9 @@ export class OrderComponent implements OnInit, OnDestroy {
       phone_number: this.phone,
       shipping_address: this.address,
       address: this.address,
-      note: 'note',
+      note: this.note,
       shipping_method: 'express',
-      payload_method: 'cod',
+      payment_method: this.payment_method,
       total_money: this.getTotal(40),
       user_id: this.tokenService.getUserId(),
       cart_items: this.cart.map((cartItem) => {
@@ -115,7 +121,6 @@ export class OrderComponent implements OnInit, OnDestroy {
         };
       }),
     };
-
     this.loadingService.show();
     this.orderService.insertOrder(orderRequest).subscribe({
       next: ({ data, mess }: any) => {
@@ -124,9 +129,8 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.cart = [];
         this.alertService.success('Tạo đơn hàng thành công');
       },
-      error: (error: any) => {
+      error: ({ error }: any) => {
         console.log(error);
-
         this.alertService.error(error.message);
         this.loadingService.hide();
       },

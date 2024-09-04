@@ -9,7 +9,7 @@ export interface OrderRequest {
   address?: string;
   note: string;
   shipping_method: string;
-  payload_method: string;
+  payment_method: string;
   total_money: number;
   user_id: number;
   cart_items: CartItemRequest[];
@@ -43,7 +43,7 @@ export interface OrderResponse {
   shipping_address: string;
   shipping_date: Date;
   tracking_number: number;
-  payment_method: number;
+  payment_method: string;
   user_id: number;
   order_details: OrderDetailReponse[];
 }

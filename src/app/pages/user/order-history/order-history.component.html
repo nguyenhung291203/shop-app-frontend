@@ -5,18 +5,10 @@
 
       <div class="flex sm:flex-col lg:flex-row sm:items-center justify-between">
         <ul class="flex max-sm:flex-col sm:items-center gap-x-14 gap-y-3">
-          <li
-            class="font-medium text-lg leading-8 cursor-pointer text-indigo-600 transition-all duration-500 hover:text-indigo-600">
-            All Order</li>
-          <li
-            class="font-medium text-lg leading-8 cursor-pointer text-black transition-all duration-500 hover:text-indigo-600">
-            Summary</li>
-          <li
-            class="font-medium text-lg leading-8 cursor-pointer text-black transition-all duration-500 hover:text-indigo-600">
-            Completed</li>
-          <li
-            class="font-medium text-lg leading-8 cursor-pointer text-black transition-all duration-500 hover:text-indigo-600">
-            Cancelled</li>
+          <li *ngFor="let status of ['ALL','PENDING','PROCESSING','SHIPPED','DELIVERED','CANCELLED']"
+            [class.text-indigo-600]="statusCurrent==status" (click)="handleChangeStatusCurrent(status)"
+            class="font-medium text-lg leading-8 cursor-pointer transition-all duration-500 hover:text-indigo-600">
+            {{status | orderStatus}}</li>
         </ul>
         <div class="flex max-sm:flex-col items-center justify-end gap-2 max-lg:mt-5">
           <div class="flex rounded-full py-3 px-4 border border-gray-300 relative">

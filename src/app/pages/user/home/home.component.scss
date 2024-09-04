@@ -1,7 +1,8 @@
 // $white-translucent-50: rgba(255, 255, 255, 0.5);
 // @import '../../../styles/colors';
 
-@import 'src/styles/colors';
+@import '../../../../styles/colors';
+
 // section
 .form-control {
   background-color: transparent;
@@ -109,7 +110,7 @@
 
 
 
-/* From Uiverse.io by 3bdel3ziz-T */ 
+/* From Uiverse.io by 3bdel3ziz-T */
 .select {
   width: fit-content;
   cursor: pointer;
@@ -155,12 +156,12 @@
   transition: 300ms;
 }
 
-.select:hover > .options {
+.select:hover>.options {
   opacity: 1;
   top: 0;
 }
 
-.select:hover > .selected .arrow {
+.select:hover>.selected .arrow {
   transform: rotate(0deg);
 }
 
@@ -172,6 +173,7 @@
   width: 150px;
   font-size: 15px;
 }
+
 .option:hover {
   background-color: #323741;
 }
@@ -183,30 +185,31 @@
 .options label {
   display: inline-block;
 }
+
 .options label::before {
   content: attr(data-txt);
 }
 
-.options input[type="radio"]:checked + label {
+.options input[type="radio"]:checked+label {
   display: none;
 }
 
-.options input[type="radio"]#all:checked + label {
+.options input[type="radio"]#all:checked+label {
   display: none;
 }
 
 .select:has(.options input[type="radio"]#all:checked) .selected::before {
   content: attr(data-default);
 }
+
 .select:has(.options input[type="radio"]#option-1:checked) .selected::before {
   content: attr(data-one);
 }
+
 .select:has(.options input[type="radio"]#option-2:checked) .selected::before {
   content: attr(data-two);
 }
+
 .select:has(.options input[type="radio"]#option-3:checked) .selected::before {
   content: attr(data-three);
 }
-
-
-
