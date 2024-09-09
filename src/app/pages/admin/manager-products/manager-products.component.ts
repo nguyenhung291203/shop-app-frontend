@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/app/environments/environments';
-import { Category, Param, Product } from 'src/app/models';
-import {
-  AlertService,
-  CategoryService,
-  LoadingService,
-  ProductService,
-} from 'src/app/services';
+import { BehaviorSubject, finalize, forkJoin, switchMap } from 'rxjs';
+import { Category, PageProductRequest, Param, Product } from 'src/app/models';
+import { AlertService, LoadingService, ProductService } from 'src/app/services';
 
 @Component({
   selector: 'app-manager-products',
@@ -16,71 +11,101 @@ import {
 export class ManagerProductsComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
-  param: Param = {
+  visibleInsertProduct: boolean = false;
+  pageProductRequest: PageProductRequest = {
+    keyword: '',
+    category_id: null,
+    limit: 5,
     page: 1,
-    limit: 10,
-    sortBy: 'id',
-    sortDir: 'asc',
+    sort_by: 'id',
+    sort_dir: 'desc',
   };
+  pageProductRequestSubject = new BehaviorSubject<PageProductRequest>(
+    this.pageProductRequest
+  );
   keyword: string = '';
   numberOfElements!: number;
   totalPages!: number;
+  cols: any[] = [];
+
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService,
     private loadingService: LoadingService,
     private alertService: AlertService
   ) {}
   ngOnInit(): void {
-    this.getAllCategories();
-    this.getAllProducts();
+    this.pageProductRequestSubject
+      .pipe(
+        switchMap((req) => {
+          this.loadingService.show();
+          return this.productService.getAllProducts(req);
+        }),
+        finalize(() => this.loadingService.hide())
+      )
+      .subscribe({
+        next: ({ data }) => {
+          this.products = data.contents;
+          this.totalPages = data.totalPages;
+          this.loadingService.hide();
+        },
+        error: ({ error }) => {
+          this.alertService.error(error.message);
+          this.loadingService.hide();
+        },
+      });
   }
 
   getAllProducts() {
-    this.loadingService.show();
-    this.productService.getAllProducts(this.keyword, this.param).subscribe({
-      next: ({ data }) => {
-        data.contents.forEach(
-          (product: Product) =>
-            (product.productUrl = `${environment.apiBaseUrl}products/images/${product.thumbnail}`)
-        );
-        this.products = data.contents;
-        this.totalPages = data.totalPages;
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-      complete: () => {
-        this.loadingService.hide();
-      },
-    });
+    this.pageProductRequestSubject.next(this.pageProductRequest);
   }
 
-  getAllCategories() {
-    this.loadingService.show();
-    this.categoryService.getAllCategories().subscribe({
-      next: ({ data }) => {
-        this.categories = data;
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-      complete: () => {
-        this.loadingService.hide();
-      },
-    });
-  }
-  getCategoryById(categoryId: number): string {
-    return this.categories.find((category) => category.id == categoryId)?.name!;
-  }
   handleChangePage(value: number) {
-    this.param = { ...this.param, page: this.param.page! + value };
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      page: this.pageProductRequest.page! + value,
+    };
     this.getAllProducts();
   }
   handleChangeKeyword() {
-    this.param = { ...this.param, page: 1 };
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      keyword: this.pageProductRequest.keyword,
+      page: 1,
+    };
     this.getAllProducts();
+  }
+  restParam() {
+    this.pageProductRequest = {
+      keyword: '',
+      category_id: null,
+      limit: 5,
+      page: 1,
+      sort_by: 'id',
+      sort_dir: 'asc',
+    };
+    this.pageProductRequestSubject.next(this.pageProductRequest);
+  }
+  closeModelInsert(event: boolean) {
+    if (event === false) {
+      this.restParam();
+    }
+  }
+  deleteProductById(product: Product) {
+    console.log(product);
+    this.alertService
+      .confirm(
+        `Bạn thực sự muốn xóa sản phẩm ${product.name}`,
+        'Bạn sẽ không thể hoàn nguyên điều này!'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          console.log('dong y');
+
+          this.alertService.success(
+            `Đã xóa sản phẩm ${product.name} thành công`
+          );
+          this.restParam();
+        }
+      });
   }
 }

@@ -26,7 +26,6 @@ export class ProductHistoryComponent implements OnInit {
     this.productService.getProductById(id).subscribe({
       next: ({ data }: any) => {
         this.product = data;
-        this.product.productUrl = `${environment.apiBaseUrl}products/images/${this.product.thumbnail}`;
       },
     });
   }

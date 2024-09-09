@@ -21,8 +21,12 @@ export class ApiService {
   get(url: string): Observable<any> {
     return this.http.get(this.apiUserUrl + url, this.getHeaders());
   }
-  post(url: string, data: any) {
-    return this.http.post(this.apiUserUrl + url, data, this.getHeaders());
+  post(url: string, data: any, isFormData: boolean = false): Observable<any> {
+    if (isFormData) {
+      return this.http.post(this.apiUserUrl + url, data);
+    } else {
+      return this.http.post(this.apiUserUrl + url, data, this.getHeaders());
+    }
   }
   put(url: string, data: any) {
     return this.http.put(this.apiUserUrl + url, data, this.getHeaders());

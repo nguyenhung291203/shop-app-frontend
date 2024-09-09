@@ -17,6 +17,10 @@ export class AlertService {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       },
+      customClass: {
+        container: 'toast-container',
+        popup: 'toast-popup',
+      },
     });
     Toast.fire({
       icon: 'success',
@@ -35,7 +39,12 @@ export class AlertService {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       },
+      customClass: {
+        container: 'toast-container',
+        popup: 'toast-popup',
+      },
     });
+
     Toast.fire({
       icon: 'error',
       title: title,
@@ -62,10 +71,11 @@ export class AlertService {
     return Swal.fire({
       title: title,
       text: text,
-      icon: 'question',
+      icon: 'warning',
+      confirmButtonColor: '#d33',
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy',
     });
   }
   signed(title: string) {

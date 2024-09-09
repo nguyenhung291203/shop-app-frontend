@@ -27,10 +27,8 @@ export class OrderHistoryComponent implements OnInit {
     private orderService: OrderService,
     private loadindService: LoadingService,
     private tokenService: TokenService,
-    private router: Router
   ) {}
   ngOnInit(): void {
-    // this.getOrdersByUserId(this.getUserId());
     this.findByUserIdAndKeyword(this.getUserId(), '', this.param);
   }
   getOrdersByUserId(userId: number) {
@@ -62,7 +60,6 @@ export class OrderHistoryComponent implements OnInit {
   handleChangeStatusCurrent(value: string) {
     this.statusCurrent = value;
     this.findByUserIdAndKeyword(this.getUserId(), value, this.param);
-
   }
 
 }

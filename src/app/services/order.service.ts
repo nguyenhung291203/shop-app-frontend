@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { OrderRequest, Param } from '../models';
-import { environment } from '../environments/environments';
-import { Router } from '@angular/router';
 import { generateParam } from '../utils';
 
 @Injectable({

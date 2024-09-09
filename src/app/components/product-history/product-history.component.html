@@ -1,7 +1,7 @@
 <div *ngIf="orderDetail && order && product" class="flex max-lg:flex-col items-center gap-8 lg:gap-24 px-3 md:px-11">
   <div class="grid grid-cols-4 w-full">
     <div class="col-span-4 sm:col-span-1">
-      <img (click)="navigateProductDetail()" [src]="product.productUrl" [alt]="product.name"
+      <img (click)="navigateProductDetail()" [src]="product.thumbnail" [alt]="product.name"
         class="max-sm:mx-auto duration-300 hover:scale-110">
     </div>
     <div class="col-span-4 sm:col-span-3 max-sm:mt-4 sm:pl-8 flex flex-col justify-center max-sm:items-center">

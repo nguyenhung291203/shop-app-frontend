@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
@@ -13,13 +11,13 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { ChartModule } from 'primeng/chart';
-
+import { DialogModule } from 'primeng/dialog';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuitemComponent } from './menu/menuitem/menuitem.component';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { ComponentsModule } from '../../components/components.module';
 import { PaginatorModule } from 'primeng/paginator';
-import { ManagerProductsComponent } from './manager-products/manager-products.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -30,8 +28,7 @@ import { ManagerProductsComponent } from './manager-products/manager-products.co
     FooterComponent,
     DashboardComponent,
     MenuitemComponent,
-    ManagerProductsComponent,
-  ],
+    ],
   imports: [
     CommonModule,
     RouterModule,
@@ -43,6 +40,8 @@ import { ManagerProductsComponent } from './manager-products/manager-products.co
     PipeModule,
     ComponentsModule,
     PaginatorModule,
+    ButtonModule,
+    DialogModule,
   ],
   exports: [AdminComponent],
 })

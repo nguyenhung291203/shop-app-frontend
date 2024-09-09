@@ -1,11 +1,12 @@
 <div class="mb-4 flex justify-between items-center">
   <input type="search" id="default-search"
-    class="block w-75 p-2 ps-10 outline-none text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-    placeholder="Tìm kiếm..." [(ngModel)]="keyword" (keydown.enter)="handleChangeKeyword()" />
-  <button type="button"
-    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Blue</button>
+    class="block flex-1 mr-20 p-2 ps-10 outline-none text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+    placeholder="Tìm kiếm..." [(ngModel)]="pageProductRequest.keyword" (keydown.enter)="handleChangeKeyword()" />
+  <app-insert-product (visibleInsertProductChange)="closeModelInsert($event)"
+    [(visibleInsertProduct)]="visibleInsertProduct" />
 
 </div>
+
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -37,7 +38,7 @@
       </tr>
     </thead>
     <tbody *ngIf="products">
-      <tr *ngFor="let product of products" class="bg-white  hover:bg-gray-50 ">
+      <tr *ngFor="let product of products" class="bg-white hover:bg-gray-50 ">
         <td class="w-4 p-4">
           <div class="flex items-center">
             <input id="checkbox-table-search-1" type="checkbox"
@@ -46,13 +47,13 @@
           </div>
         </td>
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-          <img [src]="product.productUrl" class="shadow-4" alt="{{product.name}}" width="100">
+          <img [src]="product.thumbnail" class="shadow-4" alt="{{product.name}}" width="100">
         </th>
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-40">
           {{product.name}}
         </th>
         <td class="px-6 py-4">
-          {{getCategoryById(product.category_id)}}
+          {{product.category.name}}
         </td>
         <td class="px-6 py-4">
           {{product.quantity | quantityFormatter}}
@@ -63,46 +64,48 @@
         <td class="px-6 py-4">
           <app-rating [rating]="product.rating" />
         </td>
-        <td class="flex items-center px-6 py-4">
-          <div class='flex items-center justify-center mr-2'>
-            <button
-              class="flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
-          </div>
-          <div class='flex items-center justify-center mr-2'>
-            <button
-              class="flex p-2.5 bg-blue-500 rounded-xl hover:rounded-3xl hover:bg-blue-600 transition-all duration-300 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                <path fill-rule="evenodd"
-                  d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
-                  clip-rule="evenodd" />
-              </svg>
+        <td class="px-6 py-4">
+          <div class="flex items-center ">
+            <div class='flex items-center justify-center mr-2'>
+              <button
+                class="flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </button>
+            </div>
+            <div class='flex items-center justify-center mr-2'>
+              <button
+                class="flex p-2.5 bg-blue-500 rounded-xl hover:rounded-3xl hover:bg-blue-600 transition-all duration-300 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                  <path fill-rule="evenodd"
+                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                    clip-rule="evenodd" />
+                </svg>
 
-            </button>
-          </div>
-          <div class='flex items-center justify-center'>
-            <button
-              class="flex p-2.5 bg-red-500 rounded-xl hover:rounded-3xl hover:bg-red-600 transition-all duration-300 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
-                <path fill-rule="evenodd"
-                  d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                  clip-rule="evenodd" />
-              </svg>
-            </button>
+              </button>
+            </div>
+            <div class='flex items-center justify-center'>
+              <button (click)="deleteProductById(product)"
+                class="flex p-2.5 bg-red-500 rounded-xl hover:rounded-3xl hover:bg-red-600 transition-all duration-300 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                  <path fill-rule="evenodd"
+                    d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
   <nav class="px-6 py-4 flex justify-end items-center gap-x-1" aria-label="Pagination">
-    <button type="button" (click)="handleChangePage(-1)" [disabled]="param.page==1"
-      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none   dark:focus:bg-white/10"
+    <button type="button" (click)="handleChangePage(-1)" [disabled]="pageProductRequest.page==1"
+      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none "
       aria-label="Previous">
       <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -112,14 +115,13 @@
     </button>
     <div class="flex items-center gap-x-1">
       <span
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center border border-gray-200 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 text-gray-500 dark:focus:bg-white/10">{{this.param.page}}</span>
+        class="min-h-[38px] min-w-[38px] flex justify-center items-center border border-gray-200 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-500 disabled:opacity-50 disabled:pointer-events-none text-gray-500">{{pageProductRequest.page}}</span>
+      <span class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm">of</span>
       <span
-        class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm dark:text-neutral-500">of</span>
-      <span
-        class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm dark:text-neutral-500">{{totalPages}}</span>
+        class="min-h-[38px] flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm">{{totalPages}}</span>
     </div>
-    <button type="button" (click)="handleChangePage(1)" [disabled]="param.page == totalPages"
-      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none  dark:focus:bg-white/10"
+    <button type="button" (click)="handleChangePage(1)" [disabled]="pageProductRequest.page == totalPages"
+      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
       aria-label="Next">
       <span class="sr-only">Next</span>
       <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors/token.interceptor';
+import { TokenInterceptor } from './interceptors';
 
 import { CalendarModule } from 'primeng/calendar';
 
 import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToggleModelDirective } from './directive/toggle-model.directive';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ToggleModelDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -38,6 +38,7 @@ export class CartComponent {
   getAllProductsByIds() {
     const cart = this.cartService.getCart();
     this.productIds = Array.from(cart.keys());
+    this.loadingService.show();
     this.productService.getAllProductsByIds(this.productIds).subscribe({
       next: ({ data, mess }) => {
         this.products = data;
@@ -54,7 +55,13 @@ export class CartComponent {
           };
         });
       },
-      error: () => console.log('error'),
+      error: ({ error }) => {
+        this.alertService.error(error.message);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+      },
     });
   }
   handleChangeQuantity(cartItem: CartItem, quantity: number) {

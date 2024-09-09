@@ -6,5 +6,5 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./rating.component.scss'],
 })
 export class RatingComponent {
-  @Input() rating!: number;
+  @Input() rating: number = 0;
 }

@@ -2,7 +2,7 @@
   <div class="search-box position-relative d-flex items-center">
     <div class="md:flex md:items-center mb-6 mr-2">
       <div class="md:w-3/3">
-        <input (keydown.enter)="handleChangeSearch()" [(ngModel)]="search"
+        <input (keydown.enter)="handleChangeSearch()" [(ngModel)]="pageProductRequest.keyword"
           class="bg-gray-200 appearance-none border-2 border-violet-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-violet focus:border-violet-500"
           id="inline-full-name" type="text" placeholder="Tìm kiếm sản phẩm">
       </div>
@@ -35,6 +35,6 @@
     </div>
 
   </div>
-  <app-pagination [(page)]="page" [totalPages]="totalPages" (pageChange)="getAllProducts()" />
+  <app-pagination [(page)]="pageProductRequest.page" [totalPages]="totalPages" (pageChange)="getAllProducts()" />
 </div>
 

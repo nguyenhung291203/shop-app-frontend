@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/app/environments/environments';
 import { DiscountPipe } from 'src/app/pipe/discount.pipe';
-import { Product, Category } from 'src/app/models';
+import { Product, Category, Param, PageProductRequest } from 'src/app/models';
 import {
   LoadingService,
   ProductService,
   CategoryService,
+  AlertService,
 } from 'src/app/services';
+import { BehaviorSubject, forkJoin, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,21 @@ import {
 export class HomeComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
-  page: number = 1;
-  limit: number = 12;
-  sortBy: string = 'id';
-  sortDir: string = 'asc';
   totalPages: number = 0;
   search: string = '';
   isOpenDropDown: boolean = false;
+
+  pageProductRequest: PageProductRequest = {
+    category_id: null,
+    keyword: '',
+    page: 153,
+    limit: 12,
+    sort_by: 'id',
+    sort_dir: 'asc',
+  };
+  private pageRequestSubject = new BehaviorSubject<PageProductRequest>(
+    this.pageProductRequest
+  );
   selects: [[string, string], string][] = [
     [['id', 'asc'], 'Mặc định'],
     [['price', 'asc'], 'Giá: Giá thấp đến cao'],
@@ -33,56 +42,53 @@ export class HomeComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private loadingService: LoadingService,
-    private categoryService: CategoryService
+    private alertService: AlertService
   ) {}
   ngOnInit(): void {
-    this.getAllProducts();
-    this.getAllCategories();
-  }
-  getAllProducts() {
     this.loadingService.show();
-    this.productService
-      .getAllProducts(this.search.trim(), {
-        page: this.page,
-        limit: this.limit,
-        sortBy: this.sortBy,
-        sortDir: this.sortDir,
-      })
+    this.pageRequestSubject
+      .pipe(
+        switchMap((pageRequest) => {
+          this.loadingService.show();
+          return this.productService.getAllProducts(pageRequest);
+        })
+      )
       .subscribe({
-        next: ({ data, message }: any) => {
-          data.contents.forEach(
-            (product: Product) =>
-              (product.productUrl = `${environment.apiBaseUrl}products/images/${product.thumbnail}`)
-          );
+        next: ({ data }: any) => {
           this.products = data.contents;
           this.totalPages = data.totalPages;
+          this.loadingService.hide();
         },
-        error: (error: any) => console.log(error),
-        complete: () => this.loadingService.hide(),
+        error: ({ error }: any) => {
+          this.alertService.error(error.message);
+        },
+        complete: () => {
+          this.loadingService.hide();
+        },
       });
   }
-  getAllCategories() {
-    this.loadingService.show();
-    this.categoryService.getAllCategories().subscribe({
-      next: ({ data, message }: any) => (this.categories = data),
-      error: (error: any) => console.log(error),
-      complete: () => this.loadingService.hide(),
-    });
+  getAllProducts(): void {
+    this.pageRequestSubject.next(this.pageProductRequest);
   }
-
-  toogleDropDown() {
+  toogleDropDown(): void {
     this.isOpenDropDown = !this.isOpenDropDown;
   }
-  handleChangeSelect(select: [[string, string], string]) {
+  handleChangeSelect(select: [[string, string], string]): void {
     this.select = select;
-    this.sortBy = this.select[0][0];
-    this.sortDir = this.select[0][1];
     this.isOpenDropDown = false;
-    this.page = 1;
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      page: 1,
+      sort_by: this.select[0][0],
+      sort_dir: this.select[0][1],
+    };
     this.getAllProducts();
   }
-  handleChangeSearch() {
-    this.page = 1;
+  handleChangeSearch(): void {
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      page: 1,
+    };
     this.getAllProducts();
   }
 }

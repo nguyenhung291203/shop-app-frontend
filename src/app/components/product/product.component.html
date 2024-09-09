@@ -1,7 +1,7 @@
 <ng-container *ngIf="product">
   <div class="card">
     <div (click)="navigationToProductDetail()" class="image-container">
-      <img [src]="product.productUrl" [alt]="product.name" class="svg">
+      <img [src]="product.thumbnail" [alt]="product.name" class="svg">
       <div class="price">{{product.price | currency}}</div>
     </div>
     <label class="favorite">

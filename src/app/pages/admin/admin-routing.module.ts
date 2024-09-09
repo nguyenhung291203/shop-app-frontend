@@ -6,11 +6,19 @@ import { ManagerProductsComponent } from './manager-products/manager-products.co
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/admin',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: DashboardComponent,
   },
   {
     path: 'manager-products',
-    component: ManagerProductsComponent,
+    loadChildren: () =>
+      import('./manager-products/manager-products.module').then(
+        (m) => m.ManagerProductsModule
+      ),
   },
 ];
 

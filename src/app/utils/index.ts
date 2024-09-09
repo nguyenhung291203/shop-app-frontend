@@ -1,3 +1,3 @@
 import { generateParam } from './param.util';
-
-export { generateParam };
+import { generateRandomString } from './random.util';
+export { generateParam, generateRandomString };

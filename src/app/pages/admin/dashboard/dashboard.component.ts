@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import {
-  Category,
   OrderResponse,
-  Param,
+  PageProductRequest,
   Product,
   UserResponse,
 } from 'src/app/models';
@@ -16,8 +15,15 @@ import {
   UserService,
   CategoryService,
 } from 'src/app/services';
-import { Subscription, debounceTime } from 'rxjs';
-import { environment } from 'src/app/environments/environments';
+import {
+  BehaviorSubject,
+  Subscription,
+  debounceTime,
+  finalize,
+  forkJoin,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Page } from 'src/app/models';
 interface PageEvent {
   first: number;
@@ -36,17 +42,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   pageProduct!: Page<Product>;
   orders: OrderResponse[] = [];
-  categories: Category[] = [];
   chartData: any;
   chartOptions: any;
   subscription!: Subscription;
-  param: Param = {
+  pageProductRequest: PageProductRequest = {
     page: 1,
     limit: 5,
-    sortBy: 'sold',
-    sortDir: 'desc',
+    sort_by: 'sold',
+    sort_dir: 'desc',
+    category_id: null,
+    keyword: '',
   };
-
+  pageProductRequestSubject = new BehaviorSubject<PageProductRequest>(
+    this.pageProductRequest
+  );
   constructor(
     private productService: ProductService,
     public layoutService: LayoutService,
@@ -65,10 +74,41 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initChart();
-    this.getAllProducts();
-    this.getAllOrders();
-    this.getAllUsers();
-    this.getAllCategories();
+    this.loadingService.show();
+    forkJoin({
+      orders: this.getAllOrders(),
+      users: this.getAllUsers(),
+    })
+      .pipe(finalize(() => this.loadingService.hide()))
+      .subscribe({
+        next: ({ orders, users }) => {
+          this.orders = orders.data;
+          this.users = users.data.filter(
+            (user: UserResponse) => user.role_id == 1
+          );
+        },
+        error: (err) => {
+          this.alertService.error(err.message);
+        },
+      });
+    this.pageProductRequestSubject
+      .pipe(
+        switchMap((req) => {          
+          this.loadingService.show();
+          return this.productService.getAllProducts(req);
+        }),
+        finalize(() => this.loadingService.hide())
+      )
+      .subscribe({
+        next: ({ data }) => {
+          this.pageProduct = data;
+          this.products = data.contents;
+          this.loadingService.hide();
+        },
+        error: ({ error }) => {
+          this.alertService.error(error.message);
+        },
+      });
     this.items = [
       { label: 'Add New', icon: 'pi pi-fw pi-plus' },
       { label: 'Remove', icon: 'pi pi-fw pi-minus' },
@@ -135,82 +175,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     };
   }
-  getAllCategories() {
-    this.loadingService.show();
-    this.categoryService.getAllCategories().subscribe({
-      next: ({ data, message }) => {
-        this.categories = data;
-        this.loadingService.hide();
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-    });
-  }
   getAllProducts() {
-    this.loadingService.show();
-    this.productService.getAllProducts('', this.param).subscribe({
-      next: ({ data, message }) => {
-        data.contents.forEach(
-          (product: Product) =>
-            (product.productUrl = `${environment.apiBaseUrl}products/images/${product.thumbnail}`)
-        );
-        this.pageProduct = {
-          ...data,
-          content: data.contents,
-        };
-        // this.products = data.contents;
-        this.loadingService.hide();
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-    });
+    this.pageProductRequestSubject.next(this.pageProductRequest);
+    return this.productService.getAllProducts(this.pageProductRequest);
+  }
+  getAllCategories() {
+    return this.categoryService.getAllCategories();
   }
   getAllOrders() {
-    this.loadingService.show();
-    this.orderService.getAllOrders().subscribe({
-      next: ({ data }) => {
-        this.orders = data;
-        this.loadingService.hide();
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-    });
+    return this.orderService.getAllOrders();
   }
   getAllUsers() {
-    this.loadingService.show();
-    this.userService.getAllUsers().subscribe({
-      next: ({ data }) => {
-        this.users = data.filter((user: UserResponse) => user.role_id === 1);
-        this.loadingService.hide();
-      },
-      error: ({ error }) => {
-        this.alertService.error(error.message);
-        this.loadingService.hide();
-      },
-    });
-  }
-  getCategoryById(categoryId: number): string {
-    return this.categories.find((category) => category.id == categoryId)?.name!;
+    return this.userService.getAllUsers();
   }
   getRevenue(): number {
-    return this.orders.reduce((total, item) => total + item.totalMoney, 0);
+    return this.orders.reduce((total, item) => total + item.totalMoney, 0) ?? 0;
   }
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
-  onPageChange(event: PageEvent) {
-    this.param = { ...this.param, page: event.first, limit: event.rows };
+  onPageChange(event: PageEvent): void {
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      page: event.first,
+      limit: event.rows,
+    };
+    this.pageProductRequestSubject.next(this.pageProductRequest);
   }
-  handleChangePage(value: number) {
-    this.param = { ...this.param, page: this.param.page! + value };
-    this.getAllProducts();
+  handleChangePage(value: number): void {
+    this.pageProductRequest = {
+      ...this.pageProductRequest,
+      page: this.pageProductRequest.page + value,
+    };
+    this.pageProductRequestSubject.next(this.pageProductRequest);
   }
 }
