@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   pageProductRequest: PageProductRequest = {
     category_id: null,
     keyword: '',
-    page: 153,
+    page: 1,
     limit: 12,
     sort_by: 'id',
     sort_dir: 'asc',

@@ -31,7 +31,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   ];
   payment_method: string = this.payment_methods[0][0];
   constructor(
-    private cartService: CartService,
     private productService: ProductService,
     private orderService: OrderService,
     private alertService: AlertService,

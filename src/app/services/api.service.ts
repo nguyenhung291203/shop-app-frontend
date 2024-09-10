@@ -31,4 +31,7 @@ export class ApiService {
   put(url: string, data: any) {
     return this.http.put(this.apiUserUrl + url, data, this.getHeaders());
   }
+  delete(url: string) {
+    return this.http.delete(this.apiUserUrl + url, this.getHeaders());
+  }
 }

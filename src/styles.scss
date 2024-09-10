@@ -41,13 +41,11 @@
     }
 }
 
-/* Cấu hình z-index cho container của Toast */
 .toast-container {
-    z-index: 9999; /* Hoặc giá trị cao hơn nếu cần */
-  }
-  
-  /* Cấu hình z-index cho popup của Toast */
-  .toast-popup {
-    z-index: 9999; /* Hoặc giá trị cao hơn nếu cần */
-  }
-  
+    z-index: 9999;
+    position: fixed;
+}
+
+.toast-popup {
+    z-index: 9999;
+}

@@ -32,4 +32,7 @@ export class ProductService {
       true
     );
   }
+  deleteProductById(id: number) {
+    return this.apiService.delete(`${this.apiProductUrl}/${id}`);
+  }
 }

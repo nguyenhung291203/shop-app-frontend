@@ -91,7 +91,6 @@ export class ManagerProductsComponent implements OnInit {
     }
   }
   deleteProductById(product: Product) {
-    console.log(product);
     this.alertService
       .confirm(
         `Bạn thực sự muốn xóa sản phẩm ${product.name}`,
@@ -99,12 +98,22 @@ export class ManagerProductsComponent implements OnInit {
       )
       .then((res) => {
         if (res.isConfirmed) {
-          console.log('dong y');
-
-          this.alertService.success(
-            `Đã xóa sản phẩm ${product.name} thành công`
-          );
-          this.restParam();
+          this.loadingService.show();
+          this.productService.deleteProductById(product.id).subscribe({
+            next: () => {
+              this.alertService.success(
+                `Đã xóa sản phẩm ${product.name} thành công`
+              );
+            },
+            error: ({ error }) => {
+              this.alertService.error(error.message);
+              this.loadingService.hide();
+            },
+            complete: () => {
+              this.loadingService.hide();
+              this.restParam();
+            },
+          });
         }
       });
   }
