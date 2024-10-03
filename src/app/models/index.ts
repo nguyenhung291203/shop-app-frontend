@@ -13,7 +13,11 @@ import { OrderRequest, OrderDetailReponse, OrderResponse } from './order.model';
 import { MenuChangeEvent } from './menu.change.event.model';
 import { Param } from './param.model';
 import { Page } from './page.model';
-import { PageRequest, PageProductRequest } from './page.request.model';
+import {
+  PageRequest,
+  PageProductRequest,
+  PageOrderRequest,
+} from './page.request.model';
 export {
   Category,
   Product,
@@ -34,4 +38,5 @@ export {
   ProductRequest,
   PageRequest,
   PageProductRequest,
+  PageOrderRequest,
 };

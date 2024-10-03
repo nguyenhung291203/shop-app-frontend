@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { OrderResponse, Param, Product } from 'src/app/models';
-import {
-  LoadingService,
-  OrderService,
-  ProductService,
-  TokenService,
-} from 'src/app/services';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { BehaviorSubject, switchMap } from 'rxjs';
+import { OrderResponse, PageOrderRequest, Param } from 'src/app/models';
+import { LoadingService, OrderService, TokenService } from 'src/app/services';
 
 @Component({
   selector: 'app-order-history',
@@ -15,51 +10,76 @@ import {
 })
 export class OrderHistoryComponent implements OnInit {
   orders: OrderResponse[] = [];
-  statusCurrent: string = 'ALL';
-  param: Param = {
-    page: 1,
-    limit: 5,
-    sortBy: 'id',
-    sortDir: 'asc',
-  };
+  statusCurrent: string | null = 'ALL';
 
+  pageOrderRequest: PageOrderRequest = {
+    keyword: '',
+    limit: 2,
+    page: 1,
+    sort_by: 'id',
+    sort_dir: 'asc',
+    status: null,
+  };
+  totalElements!: number;
+  private pageOrderRequest$ = new BehaviorSubject<PageOrderRequest>(
+    this.pageOrderRequest
+  );
   constructor(
     private orderService: OrderService,
     private loadindService: LoadingService,
-    private tokenService: TokenService,
+    private tokenService: TokenService
   ) {}
   ngOnInit(): void {
-    this.findByUserIdAndKeyword(this.getUserId(), '', this.param);
+    this.pageOrderRequest$
+      .pipe(
+        switchMap((pageRequest) => {
+          return this.orderService.getOrdersByUserId(
+            this.getUserId(),
+            pageRequest
+          );
+        })
+      )
+      .subscribe({
+        next: ({ data }: any) => {          
+          this.totalElements = data.totalElements;
+          this.orders = data.contents;
+          const orders = this.orders;
+        },
+        error: ({ error }: any) => console.log(error),
+        complete: () => this.loadindService.hide(),
+      });
   }
-  getOrdersByUserId(userId: number) {
-    this.loadindService.show();
-    this.orderService.getOrdersByUserId(userId).subscribe({
-      next: ({ data }: any) => {
-        console.log(data);
-
-        this.orders = data;
-      },
-      error: ({ error }: any) => console.log(error),
-      complete: () => this.loadindService.hide(),
-    });
-  }
-  findByUserIdAndKeyword(userId: number, keyword: string, param: Param) {
-    this.loadindService.show();
-    this.orderService.findByUserIdAndKeyword(userId, keyword, param).subscribe({
-      next: ({ data }: any) => {
-        console.log(data);
-        this.orders = data.contents;
-      },
-      error: ({ error }: any) => console.log(error),
-      complete: () => this.loadindService.hide(),
-    });
+  updateRequest(): void {
+    this.pageOrderRequest$.next(this.pageOrderRequest);
   }
   getUserId() {
     return this.tokenService.getUserId();
   }
-  handleChangeStatusCurrent(value: string) {
+  handleChangeStatusCurrent(value: string | null) {
     this.statusCurrent = value;
-    this.findByUserIdAndKeyword(this.getUserId(), value, this.param);
+    if (value == 'ALL') {
+      value = null;
+    }
+    this.pageOrderRequest = {
+      ...this.pageOrderRequest,
+      status: value,
+    };
+    this.updateRequest();
   }
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event): void {
+    if (this.pageOrderRequest.limit >= this.totalElements) {
+      return;
+    }
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
 
+    if (scrollPosition >= documentHeight) {
+      this.pageOrderRequest = {
+        ...this.pageOrderRequest,
+        limit: this.pageOrderRequest.limit + 1,
+      };
+      this.updateRequest();
+    }
+  }
 }

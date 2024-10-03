@@ -1,15 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartItem, Product, OrderRequest, UserResponse } from 'src/app/models';
 import {
-  CartService,
   ProductService,
   OrderService,
   AlertService,
   LoadingService,
   TokenService,
 } from 'src/app/services';
-import { environment } from 'src/app/environments/environments';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -30,6 +28,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     ['tranfer', 'Chuyển khoản'],
   ];
   payment_method: string = this.payment_methods[0][0];
+  isShowMessageSuccess: boolean = false;
   constructor(
     private productService: ProductService,
     private orderService: OrderService,
@@ -39,8 +38,6 @@ export class OrderComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
   ngOnDestroy(): void {
-    console.log('check');
-
     this.orderService.removeAllOrder();
   }
 
@@ -64,17 +61,17 @@ export class OrderComponent implements OnInit, OnDestroy {
           )!;
           return {
             quantity: cart.get(productId)!,
-            product: {
-              ...productFind,
-              productUrl: `${environment.apiBaseUrl}products/images/${productFind.thumbnail}`,
-            },
+            product: productFind,
           };
         });
       },
       error: () => console.log('error'),
     });
   }
-  handleChangeQuantity(cartItem: CartItem, quantity: number) {
+  handleChangeQuantity(cartItem: CartItem, quantity: number): void {
+    if (this.isShowMessageSuccess) {
+      return;
+    }
     if (cartItem.quantity + quantity !== 0) {
       this.cart = this.cart.map((item) => {
         if (item.product.id === cartItem.product.id)
@@ -84,7 +81,6 @@ export class OrderComponent implements OnInit, OnDestroy {
           };
         return item;
       });
-      // this.cartService.addToCart(cartItem.product.id, quantity);
       this.orderService.changeQuantityOrder(cartItem.product.id, quantity);
     }
   }
@@ -120,22 +116,24 @@ export class OrderComponent implements OnInit, OnDestroy {
         };
       }),
     };
+
     this.loadingService.show();
+
     this.orderService.insertOrder(orderRequest).subscribe({
       next: ({ data, mess }: any) => {
-        console.log(orderRequest);
         this.orderService.removeAllOrder();
-        this.cart = [];
+        this.isShowMessageSuccess = true;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         this.alertService.success('Tạo đơn hàng thành công');
       },
       error: ({ error }: any) => {
-        console.log(error);
         this.alertService.error(error.message);
         this.loadingService.hide();
       },
       complete: () => this.loadingService.hide(),
     });
   }
+
   handleNavigate(productId: number) {
     this.router.navigate([`/products/${productId}`]);
   }

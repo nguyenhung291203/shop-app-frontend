@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, finalize, forkJoin, switchMap } from 'rxjs';
-import { Category, PageProductRequest, Param, Product } from 'src/app/models';
+import { BehaviorSubject, finalize, switchMap } from 'rxjs';
+import { Category, PageProductRequest, Product } from 'src/app/models';
 import { AlertService, LoadingService, ProductService } from 'src/app/services';
 
 @Component({
@@ -10,15 +10,18 @@ import { AlertService, LoadingService, ProductService } from 'src/app/services';
 })
 export class ManagerProductsComponent implements OnInit {
   products: Product[] = [];
+  product!: Product;
   categories: Category[] = [];
   visibleInsertProduct: boolean = false;
+  isShowDialogDetailProduct: boolean = false;
+  isShowDialogEditProduct: boolean = false;
   pageProductRequest: PageProductRequest = {
     keyword: '',
     category_id: null,
-    limit: 5,
+    limit: 10,
     page: 1,
     sort_by: 'id',
-    sort_dir: 'desc',
+    sort_dir: 'asc',
   };
   pageProductRequestSubject = new BehaviorSubject<PageProductRequest>(
     this.pageProductRequest
@@ -27,7 +30,6 @@ export class ManagerProductsComponent implements OnInit {
   numberOfElements!: number;
   totalPages!: number;
   cols: any[] = [];
-
   constructor(
     private productService: ProductService,
     private loadingService: LoadingService,
@@ -37,7 +39,6 @@ export class ManagerProductsComponent implements OnInit {
     this.pageProductRequestSubject
       .pipe(
         switchMap((req) => {
-          this.loadingService.show();
           return this.productService.getAllProducts(req);
         }),
         finalize(() => this.loadingService.hide())
@@ -46,13 +47,12 @@ export class ManagerProductsComponent implements OnInit {
         next: ({ data }) => {
           this.products = data.contents;
           this.totalPages = data.totalPages;
-          this.loadingService.hide();
         },
         error: ({ error }) => {
           this.alertService.error(error.message);
-          this.loadingService.hide();
         },
       });
+
   }
 
   getAllProducts() {
@@ -78,7 +78,7 @@ export class ManagerProductsComponent implements OnInit {
     this.pageProductRequest = {
       keyword: '',
       category_id: null,
-      limit: 5,
+      limit: 10,
       page: 1,
       sort_by: 'id',
       sort_dir: 'asc',
@@ -104,6 +104,9 @@ export class ManagerProductsComponent implements OnInit {
               this.alertService.success(
                 `Đã xóa sản phẩm ${product.name} thành công`
               );
+              this.products = this.products.filter(
+                (productItem) => productItem.id !== product.id
+              );
             },
             error: ({ error }) => {
               this.alertService.error(error.message);
@@ -116,5 +119,13 @@ export class ManagerProductsComponent implements OnInit {
           });
         }
       });
+  }
+  handleChangeIsShowDialogDetailProduct(product: Product): void {
+    this.isShowDialogDetailProduct = true;
+    this.product = product;
+  }
+  handleChangeIsShowDialogEditProduct(product: Product): void {
+    this.isShowDialogEditProduct = true;
+    this.product = product;
   }
 }

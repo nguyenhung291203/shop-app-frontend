@@ -8,6 +8,7 @@ import { OrderResponse } from 'src/app/models';
 })
 export class OrderHistoryItemComponent implements OnInit {
   @Input() order!: OrderResponse;
+
   constructor() {}
   ngOnInit(): void {}
 }

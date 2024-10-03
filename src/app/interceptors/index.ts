@@ -1,3 +1,3 @@
 import { TokenInterceptor } from './token.interceptor';
-
-export { TokenInterceptor };
+import { HttpCachingInterceptor } from './cache.interceptor';
+export { TokenInterceptor, HttpCachingInterceptor };

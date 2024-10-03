@@ -10,6 +10,7 @@ import { CartService } from './cart.service';
 import { OrderService } from './order.service';
 import { LayoutService } from './layout.service';
 import { MenuService } from './menu.service';
+import { CacheService } from './cache.service';
 export {
   UserService,
   TokenService,
@@ -23,4 +24,5 @@ export {
   OrderService,
   LayoutService,
   MenuService,
+  CacheService,
 };

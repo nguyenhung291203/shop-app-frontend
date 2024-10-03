@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManagerProductsComponent } from './manager-products/manager-products.component';
 
 const routes: Routes = [
   {
@@ -18,6 +17,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./manager-products/manager-products.module').then(
         (m) => m.ManagerProductsModule
+      ),
+  },
+  {
+    path: 'manager-orders',
+    loadChildren: () =>
+      import('./manager-orders/manager-orders.module').then(
+        (m) => m.ManagerOrdersModule
       ),
   },
 ];

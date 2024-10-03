@@ -11,9 +11,11 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
-  declarations: [ManagerProductsComponent, InsertProductComponent],
+  declarations: [ManagerProductsComponent, InsertProductComponent, ProductDetailComponent, EditProductComponent],
   imports: [
     CommonModule,
     FormsModule,

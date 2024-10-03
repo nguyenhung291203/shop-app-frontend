@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/environments/environments';
 import { OrderDetailReponse, OrderResponse, Product } from 'src/app/models';
 import { OrderService, ProductService } from 'src/app/services';
 
@@ -11,16 +10,16 @@ import { OrderService, ProductService } from 'src/app/services';
 })
 export class ProductHistoryComponent implements OnInit {
   @Input() orderDetail!: OrderDetailReponse;
+  @Input() order!:OrderResponse;
   product!: Product;
-  order!: OrderResponse;
   constructor(
     private productService: ProductService,
     private orderService: OrderService,
-    private router:Router
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.getProductById(this.orderDetail.product_id);
-    this.getOrderById(this.orderDetail.order_id);
+    this.product = this.orderDetail.product;  
+    // this.getOrderById(this.orderDetail.order_id);
   }
   getProductById(id: number) {
     this.productService.getProductById(id).subscribe({
@@ -37,7 +36,7 @@ export class ProductHistoryComponent implements OnInit {
       next: ({ data }: any) => (this.order = data),
     });
   }
-  navigateProductDetail(){
-    this.router.navigate([`products/${this.product.id}`])
+  navigateProductDetail() {
+    this.router.navigate([`products/${this.product.id}`]);
   }
 }

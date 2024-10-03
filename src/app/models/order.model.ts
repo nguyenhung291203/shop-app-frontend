@@ -20,8 +20,7 @@ export interface OrderDetailReponse {
   price: string;
   color: string;
   order_id: number;
-  product_id: number;
-  product?: Product;
+  product: Product;
   number_of_products: number;
   total_money: number;
 }

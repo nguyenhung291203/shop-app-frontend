@@ -18,6 +18,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
 import { ComponentsModule } from '../../components/components.module';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
+import { ManagerOrdersComponent } from './manager-orders/manager-orders.component';
 
 @NgModule({
   declarations: [

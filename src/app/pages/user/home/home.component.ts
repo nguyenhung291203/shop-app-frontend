@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DiscountPipe } from 'src/app/pipe/discount.pipe';
 import { Product, Category, Param, PageProductRequest } from 'src/app/models';
-import {
-  LoadingService,
-  ProductService,
-  CategoryService,
-  AlertService,
-} from 'src/app/services';
-import { BehaviorSubject, forkJoin, Subject, switchMap } from 'rxjs';
+import { LoadingService, ProductService, AlertService } from 'src/app/services';
+import { BehaviorSubject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -61,6 +56,7 @@ export class HomeComponent implements OnInit {
         },
         error: ({ error }: any) => {
           this.alertService.error(error.message);
+          this.loadingService.hide();
         },
         complete: () => {
           this.loadingService.hide();

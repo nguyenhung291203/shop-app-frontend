@@ -32,24 +32,14 @@ export class MenuComponent implements OnInit {
             routerLink: ['/admin/manager-products'],
           },
           {
-            label: 'Thể loại',
-            icon: 'pi pi-fw pi-objects-column',
-            routerLink: ['/admin/categories'],
-          },
-          {
             label: 'Đơn hàng',
             icon: 'pi pi-fw pi-clipboard',
-            routerLink: ['/admin/orders'],
+            routerLink: ['/admin/manager-orders'],
           },
           {
             label: 'Tài khoản',
             icon: 'pi pi-fw pi-user',
             routerLink: ['/admin/users'],
-          },
-          {
-            label: 'Quyền',
-            icon: 'pi pi-fw pi-verified',
-            routerLink: ['/admin/roles'],
           },
         ],
       },

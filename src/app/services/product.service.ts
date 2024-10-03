@@ -35,4 +35,7 @@ export class ProductService {
   deleteProductById(id: number) {
     return this.apiService.delete(`${this.apiProductUrl}/${id}`);
   }
+  updateProduct(id: number, productRequest: ProductRequest) {
+    return this.apiService.put(`${this.apiProductUrl}/${id}`, productRequest);
+  }
 }

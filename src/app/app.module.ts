@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors';
+import { HttpCachingInterceptor, TokenInterceptor } from './interceptors';
 
 import { CalendarModule } from 'primeng/calendar';
 
@@ -26,6 +26,11 @@ import { ToggleModelDirective } from './directive/toggle-model.directive';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpCachingInterceptor,
       multi: true,
     },
   ],

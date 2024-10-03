@@ -38,6 +38,8 @@ export class CartComponent {
   getAllProductsByIds() {
     const cart = this.cartService.getCart();
     this.productIds = Array.from(cart.keys());
+    if (this.productIds.length==0)
+      return;
     this.loadingService.show();
     this.productService.getAllProductsByIds(this.productIds).subscribe({
       next: ({ data, mess }) => {
@@ -107,7 +109,7 @@ export class CartComponent {
       );
   }
   getTotal(expense: number) {
-    return this.getSubTotal() === 0 ? 0 : this.getSubTotal() - expense;
+    return this.getSubTotal() === 0 ? 0 : this.getSubTotal() + expense;
   }
   handleNavigate(productId: number) {
     this.router.navigate([`/products/${productId}`]);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { OrderRequest, Param } from '../models';
+import { OrderRequest, PageOrderRequest, Param } from '../models';
 import { generateParam } from '../utils';
 
 @Injectable({
@@ -23,8 +23,14 @@ export class OrderService {
   getOrderById(id: number) {
     return this.apiService.get(`${this.apiOrderUrl}/${id}`);
   }
-  getOrdersByUserId(userId: number) {
-    return this.apiService.get(`${this.apiOrderUrl}/users/${userId}`);
+  getOrdersByUserId(userId: number, pageOrderRequest: PageOrderRequest) {
+    return this.apiService.post(
+      `${this.apiOrderUrl}/users/${userId}/search`,
+      pageOrderRequest
+    );
+  }
+  findAllOrders(pageOrderRequest: PageOrderRequest) {
+    return this.apiService.post(`${this.apiOrderUrl}/search`, pageOrderRequest);
   }
   findByUserIdAndKeyword(userId: number, keyword: string = '', param: Param) {
     return this.apiService.get(
